@@ -1,0 +1,89 @@
+{
+	"name": "ForTraining",
+	"version": "0.1.0",
+	"author": [
+		"holybiber"
+	],
+	"url": "https://github.com/4training/mediawiki-skins-ForTraining",
+	"descriptionmsg": "fortraining-skin-desc",
+	"namemsg": "skinname-fortraining",
+	"license-name": "GPL2",
+	"type": "skin",
+	"requires": {
+		"MediaWiki": ">= 1.39.0"
+	},
+	"ValidSkinNames": {
+		"fortraining": {
+			"class": "SkinMustache",
+			"args": [
+				{
+					"name": "fortraining",
+					"responsive": true,
+					"messages": [
+						"fortraining-no-categories",
+						"sitetitle",
+						"search",
+						"otherlanguages",
+						"tagline",
+						"navigation-heading"
+					],
+					"styles": [
+						"mediawiki.ui.icon",
+						"mediawiki.ui.button",
+						"skins.fortraining.styles"
+					],
+					"scripts": [
+						"skins.fortraining"
+					]
+				}
+			]
+		}
+	},
+	"MessagesDirs": {
+		"ForTraining": [
+			"i18n"
+		]
+	},
+	"ResourceModules": {
+		"skins.fortraining.styles": {
+			"class": "ResourceLoaderSkinModule",
+			"features": {
+				"normalize": true,
+				"elements": true,
+				"content-tables": true,
+				"content-links": false,
+				"content-media": false,
+				"content-links-external": false,
+				"interface-message-box": true,
+				"interface-category": false,
+				"toc": true
+			},
+			"targets": [
+				"desktop",
+				"mobile"
+			],
+			"styles": [
+				"resources/skin.less"
+			]
+		},
+		"skins.fortraining": {
+			"targets": [
+				"desktop",
+				"mobile"
+			],
+			"packageFiles": [
+				"resources/skin.js"
+			]
+		}
+	},
+	"ResourceFileModulePaths": {
+		"localBasePath": "",
+		"remoteSkinPath": "ForTraining"
+	},
+	"ResourceModuleSkinStyles": {
+		"fortraining": {
+			"+ext.echo.styles.badge": "resources/extensions/echo.styles.badge.less"
+		}
+	},
+	"manifest_version": 2
+}

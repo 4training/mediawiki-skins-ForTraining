@@ -1,0 +1,10 @@
+{
+	"@metadata": {
+		"authors": [
+			"holybiber"
+		]
+	},
+	"skinname-fortraining": "{{optional}}",
+	"fortraining-desc": "{{desc|what=skin|name=ForTraining|url=https://github.com/4training/mediawiki-skins-ForTraining}}",
+	"fortraining-no-categories": "Message to show when no categories available"
+}

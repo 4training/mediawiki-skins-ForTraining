@@ -33,7 +33,7 @@
 						"skins.fortraining.styles"
 					],
 					"scripts": [
-						"skins.fortraining"
+						"skins.fortraining.js"
 					]
 				}
 			]
@@ -66,13 +66,10 @@
 				"resources/skin.less"
 			]
 		},
-		"skins.fortraining": {
-			"targets": [
-				"desktop",
-				"mobile"
-			],
+		"skins.fortraining.js": {
+			"targets": [ "desktop", "mobile" ],
 			"packageFiles": [
-				"resources/skin.js"
+				"resources/fortraining.js"
 			]
 		}
 	},

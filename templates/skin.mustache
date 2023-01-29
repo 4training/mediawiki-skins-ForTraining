@@ -1,4 +1,4 @@
-<div id="mw-wrapper">
+<div id="ft-wrapper">
 	<div id="ft-header">
 		<a href="/mediawiki/index.php/Special:MyLanguage/Start" title="Visit the main page">
 			<img id="ft-logo" src="/mediawiki/skins/ForTraining/images/4training.png" alt="logo"/>
@@ -44,6 +44,7 @@
 			{{#data-notifications}}{{>Portlet}}{{/data-notifications}}
 			{{#data-user-interface-preferences}}{{>Portlet}}{{/data-user-interface-preferences}}
 			{{#data-user-menu}}{{>Portlet}}{{/data-user-menu}}
+		</div>
 		<!-- <div id="left-navigation"> was anyway empty in old version, we don't need that -->
 		<div id="right-navigation">
 			<!-- TODO show some of this only to logged-in users / admins -->
@@ -56,13 +57,12 @@
 			{{#data-views}}{{>Portlet}}{{/data-views}}
 			{{#data-actions}}{{>Portlet}}{{/data-actions}}
 		</div>
-		<div id="mw-panel">
-			<!-- in new approach this is called "site-navigation" -->
+		<div id="mw-panel">{{!The main navigation sidebar to the left}}
 			{{#data-portlets-sidebar.data-portlets-first}}{{>Portlet}}{{/data-portlets-sidebar.data-portlets-first}}
 			{{#data-portlets-sidebar.array-portlets-rest}}{{>Portlet}}{{/data-portlets-sidebar.array-portlets-rest}}
 			{{#data-portlets.data-languages}}{{>Portlet}}{{/data-portlets.data-languages}}
 		</div>
-		<div id="ft-toggle-menu">
+		<div id="ft-toggle-menu">{{! TODO in the following two lines}}
 			<a id="ft-closemenu" href="#" class="togglecollapse" title="<?php echo wfMessage('headnav-collapsemenu')->text(); ?>">&laquo;</a>
 			<a id="ft-openmenu" href="#" class="toggleexpand" title="<?php echo wfMessage('headnav-expandmenu')->text(); ?>" style="display:none">&raquo;</a>
 		</div>
@@ -93,8 +93,8 @@
 		</div>
 		{{/data-portlets}}
 		<div id="site-navigation">
-		</div>
-	</div>-->
+		</div>-->
+	</div>
 	<div id="footer" class="mw-footer" role="contentinfo" {{{html-user-language-attributes}}}>
 		{{#data-footer}}
 		{{!}}{{#data-icons}}{{>FooterList}}{{/data-icons}}

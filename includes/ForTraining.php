@@ -1,33 +1,23 @@
 <?php
 namespace ForTraining;
 use SkinMustache;
-use Sanitizer;
-use Linker;
-use Html;
 
 class SkinForTraining extends SkinMustache {
     protected function runOnSkinTemplateNavigationHooks( $skin, &$content_navigation ) {
         parent::runOnSkinTemplateNavigationHooks($skin, $content_navigation);
+
+        // Don't show login link for all visitors in the top right
+        unset($content_navigation["user-menu"]["login"]);
+
+        // Remove some entries from the user menu for logged-in users
         unset($content_navigation["user-menu"]["mytalk"]);
         unset($content_navigation["user-menu"]["userpage"]);
         unset($content_navigation["user-menu"]["watchlist"]);
-    }
-}
 
-class ForTrainingHooks {
-    /*
-    * This is attached to the MediaWiki 'SkinTemplateNavigation::Universal' hook.
-    * TODO: Remove this - didn't work out in the end because this hook is run on an arbitrary time
-    * and e.g. the hook from Universal language selector has not yet run, so we can't modify it
-    * -> overwrite runOnSkinTemplateNavigationHooks
-    */
-    public static function onSkinTemplateNavigationUniversal( $skinTemplate, array &$links) {
-        console_log($links["user-interface-preferences"]);
-        unset($links["user-menu"]["mytalk"]);
-        unset($links["user-menu"]["userpage"]);
-        unset($links["user-menu"]["watchlist"]);
+        // Add the universal language selector (ULS) to the beginning of the user menu
+        $content_navigation["user-menu"] = array("uls" => $content_navigation["user-interface-preferences"]["uls"])
+             + $content_navigation["user-menu"];
     }
-
 }
 
 // for debugging

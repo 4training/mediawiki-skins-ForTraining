@@ -14,7 +14,7 @@
 	},
 	"ValidSkinNames": {
 		"fortraining": {
-			"class": "ForTraining\\SkinForTraining",
+			"class": "SkinForTraining",
 			"args": [
 				{
 					"name": "fortraining",
@@ -45,7 +45,7 @@
 		]
 	},
 	"AutoloadClasses": {
-		"ForTraining\\SkinForTraining": "includes/ForTraining.php"
+		"SkinForTraining": "includes/SkinForTraining.php"
 	},
 	"ResourceModules": {
 		"skins.fortraining.styles": {

@@ -96,12 +96,10 @@
 	<div id="footer" class="mw-footer" role="contentinfo" {{{html-user-language-attributes}}}>
 		{{#data-footer}}
 		{{!}}{{#data-icons}}{{>FooterList}}{{/data-icons}}
-		{{!}}<div id="footer-list">
 		{{!}}{{#data-info}}{{>FooterList}}{{/data-info}}
-		{{!}}{{#data-places}}{{>FooterList}}{{/data-places}}
-		{{!}}</div>
 		{{/data-footer}}
-		<!-- todo: replace with .mixin-clearfix -->
+		<ul id="footer-login" class="noprint"><li id="footer-loginlink"><a href="/Special:UserLogin">Login</a></li></ul>
+		{{! todo: replace with .mixin-clearfix }}
 		<div class="visualClear"></div>
 	</div>
 </div>

@@ -1,7 +1,8 @@
 <?php
-namespace ForTraining;
-use SkinMustache;
 
+/*
+ * Our skin class: Customizing some behaviors by overriding methods
+ */
 class SkinForTraining extends SkinMustache {
     protected function runOnSkinTemplateNavigationHooks( $skin, &$content_navigation ) {
         parent::runOnSkinTemplateNavigationHooks($skin, $content_navigation);
@@ -17,6 +18,16 @@ class SkinForTraining extends SkinMustache {
         // Add the universal language selector (ULS) to the beginning of the user menu
         $content_navigation["user-menu"] = array("uls" => $content_navigation["user-interface-preferences"]["uls"])
              + $content_navigation["user-menu"];
+    }
+
+    protected function getFooterLinks(): array {
+        $data = parent::getFooterLinks();
+
+        // Only show "This page was last edited on ..." for logged-in users
+        if (!$this->loggedin) {
+            unset($data['info']);
+        }
+        return $data;
     }
 }
 

@@ -23,7 +23,8 @@
 
 		// if we haven't already bound our resize handler, bind it now
 		if ( !$.collapsibleTabs.boundEvent ) {
-			$( window ).on( 'resize', $.debounce( 500, function () {
+			$( window ).on( 'resize', mw.util.debounce( 500, function () {
+				alert("Successful");
 				$.collapsibleTabs.handleResize();
 			} ) );
 			$.collapsibleTabs.boundEvent = true;

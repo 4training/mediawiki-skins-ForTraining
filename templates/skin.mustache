@@ -6,15 +6,15 @@
 		{{/data-logos}}
 		</a>
 		<div id="ft-header-menu">
-			<a href="/Special:MyLanguage/Essentials">Essentials</a>
-			<a href="/Special:MyLanguage/More">More</a>
-			<a href="/Special:MyLanguage/Languages">Languages</a>
-			<a href="/Special:MyLanguage/FAQ">FAQ</a>
-			<a style="margin-right: 10px" href="https://www.4training.net/Special:MyLanguage/Contact">Contact</a>
+			<a href="/Special:MyLanguage/Essentials">{{msg-headnav-essentials}}</a>
+			<a href="/Special:MyLanguage/More">{{msg-headnav-more}}</a>
+			<a href="/Special:MyLanguage/Languages">{{msg-headnav-languages}}</a>
+			<a href="/Special:MyLanguage/FAQ">{{msg-headnav-faq}}</a>
+			<a style="margin-right: 10px" href="https://www.4training.net/Special:MyLanguage/Contact">{{msg-contactpage-title}}</a>
 		</div>
 	</div>
 
-	<div class="mw-body" id="content" role="main">
+	<div id="ft-content" class="mw-body" role="main">
 		<div id="siteNotice">{{{html-site-notice}}}</div>
 		{{{html-user-message}}}
 		<div class="mw-indicators mw-body-content">
@@ -30,7 +30,7 @@
 				{{{html-undelete-link}}}
 			</div>
 			{{{html-body-content}}}
-			<!-- todo: replace with .mixin-clearfix -->
+			{{! todo: replace with .mixin-clearfix }}
 			<div class="visualClear"></div>
 			{{#data-portlets}}
 			{{>CategoryPortlet}}
@@ -61,8 +61,8 @@
 			{{#data-portlets.data-languages}}{{>Portlet}}{{/data-portlets.data-languages}}
 		</div>
 		<div id="ft-toggle-menu">{{! TODO in the following two lines}}
-			<a id="ft-closemenu" href="#" class="togglecollapse" title="<?php echo wfMessage('headnav-collapsemenu')->text(); ?>">&laquo;</a>
-			<a id="ft-openmenu" href="#" class="toggleexpand" title="<?php echo wfMessage('headnav-expandmenu')->text(); ?>" style="display:none">&raquo;</a>
+			<a id="ft-closemenu" href="#" class="togglecollapse" title="{{msg-headnav-collapsemenu}}">&laquo;</a>
+			<a id="ft-openmenu" href="#" class="toggleexpand" title="{{msg-headnav-expandmenu}}" style="display:none">&raquo;</a>
 		</div>
 
 <!--		<div id="p-logo" class="mw-portlet" role="banner">

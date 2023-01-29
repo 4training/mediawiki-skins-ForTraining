@@ -4,6 +4,21 @@
  * Our skin class: Customizing some behaviors by overriding methods
  */
 class SkinForTraining extends SkinMustache {
+
+    public function getTemplateData() {
+        $data = parent::getTemplateData();
+
+        // Provide a number of system messages we need
+        $data['msg-headnav-essentials'] = $this->msg('headnav-essentials')->parse();
+        $data['msg-headnav-more'] = $this->msg('headnav-more')->parse();
+        $data['msg-headnav-languages'] = $this->msg('headnav-languages')->parse();
+        $data['msg-headnav-faq'] = $this->msg('headnav-faq')->parse();
+        $data['msg-contactpage-title'] = $this->msg('contactpage-title')->parse();
+        $data['msg-headnav-collapsemenu'] = $this->msg('headnav-collapsemenu')->parse();
+        $data['msg-headnav-expandmenu'] = $this->msg('headnav-expandmenu')->parse();
+        return $data;
+    }
+
     protected function runOnSkinTemplateNavigationHooks( $skin, &$content_navigation ) {
         parent::runOnSkinTemplateNavigationHooks($skin, $content_navigation);
 
@@ -27,6 +42,9 @@ class SkinForTraining extends SkinMustache {
         if (!$this->loggedin) {
             unset($data['info']);
         }
+
+        // Another way to add the login link... maybe use this instead of writing it in skin.mustache?
+        // $data["info"]["login"] = '<a href="/Special:UserLogin">Login</a></li>';
         return $data;
     }
 }

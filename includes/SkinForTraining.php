@@ -16,6 +16,11 @@ class SkinForTraining extends SkinMustache {
         $data['msg-contactpage-title'] = $this->msg('contactpage-title')->parse();
         $data['msg-headnav-collapsemenu'] = $this->msg('headnav-collapsemenu')->parse();
         $data['msg-headnav-expandmenu'] = $this->msg('headnav-expandmenu')->parse();
+
+        // Show toolbox in the sidebar only for logged-in users
+        if (!$this->loggedin) {
+            unset($data['data-portlets-sidebar']['array-portlets-rest']);
+        }
         return $data;
     }
 

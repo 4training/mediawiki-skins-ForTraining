@@ -1,7 +1,9 @@
 <div id="ft-wrapper">
 	<div id="ft-header">
 		<a href="/mediawiki/index.php/Special:MyLanguage/Start" title="Visit the main page">
-			<img id="ft-logo" src="/mediawiki/skins/ForTraining/images/4training.png" alt="logo"/>
+		{{#data-logos}}{{! Reading logo information from $wgLogos['wordmark'] in LocalSettings.php}}
+			{{#1x}}<img id="ft-logo" src="{{.}}" alt="logo"/>{{/1x}}
+		{{/data-logos}}
 		</a>
 		<div id="ft-header-menu">
 			<a href="/Special:MyLanguage/Essentials">Essentials</a>
@@ -39,23 +41,20 @@
 	<div id="mw-navigation">
 		<h2>{{msg-navigation-heading}}</h2>
 		<div id="mw-head">
-			<!-- TODO disable some of them - before this was renderNavigation('PERSONAL') I think -->
-			{{#data-user-page}}{{>Portlet}}{{/data-user-page}}
-			{{#data-notifications}}{{>Portlet}}{{/data-notifications}}
-			{{#data-user-interface-preferences}}{{>Portlet}}{{/data-user-interface-preferences}}
+		{{#data-portlets}}
+			<!-- TODO move this language selector into data-user-menu {{#data-user-interface-preferences}}{{>Portlet}}{{/data-user-interface-preferences}}-->
 			{{#data-user-menu}}{{>Portlet}}{{/data-user-menu}}
-		</div>
-		<!-- <div id="left-navigation"> was anyway empty in old version, we don't need that -->
-		<div id="right-navigation">
-			<!-- TODO show some of this only to logged-in users / admins -->
-			<div id="p-guidelines" role="navigation" class="vectorTabs">
-				<ul><li><span><a href="/4training:Guidelines">Guidelines</a></span></li></ul>
+			<div id="right-navigation">
+				<!-- TODO show some of this only to logged-in users / admins -->
+				<div id="p-guidelines" role="navigation" class="vectorTabs">
+					<ul><li><span><a href="/4training:Guidelines">Guidelines</a></span></li></ul>
+				</div>
+				<!-- TODO look through this, in new approach this is the "page-tools" -->
+				{{#data-namespaces}}{{>Portlet}}{{/data-namespaces}}
+				{{#data-views}}{{>Portlet}}{{/data-views}}
+				{{#data-actions}}{{>Portlet}}{{/data-actions}}
 			</div>
-			<!-- TODO look through this, in new approach this is the "page-tools" -->
-			{{#data-namespaces}}{{>Portlet}}{{/data-namespaces}}
-			{{#data-variants}}{{>Portlet}}{{/data-variants}}
-			{{#data-views}}{{>Portlet}}{{/data-views}}
-			{{#data-actions}}{{>Portlet}}{{/data-actions}}
+		{{/data-portlets}}
 		</div>
 		<div id="mw-panel">{{!The main navigation sidebar to the left}}
 			{{#data-portlets-sidebar.data-portlets-first}}{{>Portlet}}{{/data-portlets-sidebar.data-portlets-first}}

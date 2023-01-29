@@ -14,7 +14,7 @@
 	},
 	"ValidSkinNames": {
 		"fortraining": {
-			"class": "SkinMustache",
+			"class": "ForTraining\\SkinForTraining",
 			"args": [
 				{
 					"name": "fortraining",
@@ -43,6 +43,9 @@
 		"ForTraining": [
 			"i18n"
 		]
+	},
+	"AutoloadClasses": {
+		"ForTraining\\SkinForTraining": "includes/ForTraining.php"
 	},
 	"ResourceModules": {
 		"skins.fortraining.styles": {

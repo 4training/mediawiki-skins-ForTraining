@@ -11,6 +11,21 @@
 			<a href="/Special:MyLanguage/Languages">{{msg-headnav-languages}}</a>
 			<a href="/Special:MyLanguage/FAQ">{{msg-headnav-faq}}</a>
 			<a style="margin-right: 10px" href="https://www.4training.net/Special:MyLanguage/Contact">{{msg-contactpage-title}}</a>
+
+			{{#data-search-box}}
+			<div id="p-search" role="search">
+			<form action="{{form-action}}" role="search" class="mw-portlet" id="p-search">
+				<div id="simpleSearch">
+					<input type="hidden" name="title" value="{{page-title}}">
+					<h3  {{{html-user-language-attributes}}}>
+						<label for="searchInput">{{msg-search}}</label>
+					</h3>
+					{{{html-input}}}
+					{{{html-button-search}}}
+				</div>
+			</form>
+			</div>
+			{{/data-search-box}}
 		</div>
 	</div>
 

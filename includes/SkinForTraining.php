@@ -1,5 +1,7 @@
 <?php
 
+use MediaWiki\MediaWikiServices;
+
 /*
  * Our skin class: Customizing some behaviors by overriding methods
  */
@@ -17,9 +19,24 @@ class SkinForTraining extends SkinMustache {
         $data['msg-headnav-collapsemenu'] = $this->msg('headnav-collapsemenu')->parse();
         $data['msg-headnav-expandmenu'] = $this->msg('headnav-expandmenu')->parse();
 
-        // Show toolbox in the sidebar only for logged-in users
         if (!$this->loggedin) {
+            // Show toolbox in the sidebar only for logged-in users
             unset($data['data-portlets-sidebar']['array-portlets-rest']);
+
+            // Show right navigation only to logged-in users
+            unset($data['data-portlets']['data-namespaces']);
+            unset($data['data-portlets']['data-views']);
+            unset($data['data-portlets']['data-actions']);
+        } else {
+            // Show namespaces (page / discussion page) only to admin
+            $groupManager = MediaWikiServices::getInstance()->getUserGroupManager();
+            if (!in_array('sysop', $groupManager->getUserEffectiveGroups($this->getUser()))) {
+                // $this->getUser->getEffectiveGroups() doesn't work anymore: https://phabricator.wikimedia.org/T275148
+                unset($data['data-portlets']['data-namespaces']);
+            }
+
+            // Show guidelines only to logged-in users
+            $data['data-guidelines'] = true;
         }
         return $data;
     }

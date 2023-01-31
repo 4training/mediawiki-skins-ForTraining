@@ -58,19 +58,15 @@
 		<div id="mw-head">
 		{{#data-portlets}}
 			{{#data-user-menu}}{{>Portlet}}{{/data-user-menu}}
-			<div id="right-navigation">
-				<!-- TODO show some of this only to logged-in users / admins -->
-				<div id="p-guidelines" role="navigation" class="vectorTabs">
-					<ul><li><span><a href="/4training:Guidelines">Guidelines</a></span></li></ul>
-				</div>
-				<!-- TODO look through this, in new approach this is the "page-tools" -->
+			<div id="right-navigation">{{! Navigation for logged-in users}}
+				{{#data-guidelines}}{{>Guidelines}}{{/data-guidelines}}
 				{{#data-views}}{{>RightNavigation}}{{/data-views}}
 				{{#data-namespaces}}{{>RightNavigation}}{{/data-namespaces}}
-				{{#data-actions}}{{>RightNavigation}}{{/data-actions}}
+				{{#data-actions}}{{>RightNavigationMore}}{{/data-actions}}
 			</div>
 		{{/data-portlets}}
 		</div>
-		<div id="mw-panel">{{!The main navigation sidebar to the left}}
+		<div id="mw-panel">{{! The main navigation sidebar to the left}}
 			{{#data-portlets-sidebar.data-portlets-first}}{{>Portlet}}{{/data-portlets-sidebar.data-portlets-first}}
 			{{#data-portlets-sidebar.array-portlets-rest}}{{>Portlet}}{{/data-portlets-sidebar.array-portlets-rest}}
 			{{#data-portlets.data-languages}}{{>Portlet}}{{/data-portlets.data-languages}}

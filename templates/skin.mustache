@@ -14,7 +14,7 @@
 
 			{{#data-search-box}}
 			<div id="p-search" role="search">
-			<form action="{{form-action}}" role="search" class="mw-portlet" id="p-search">
+			<form action="{{form-action}}" role="search" class="mw-portlet" id="search">
 				<div id="simpleSearch">
 					<input type="hidden" name="title" value="{{page-title}}">
 					<h3  {{{html-user-language-attributes}}}>
@@ -64,9 +64,9 @@
 					<ul><li><span><a href="/4training:Guidelines">Guidelines</a></span></li></ul>
 				</div>
 				<!-- TODO look through this, in new approach this is the "page-tools" -->
-				{{#data-namespaces}}{{>Portlet}}{{/data-namespaces}}
-				{{#data-views}}{{>Portlet}}{{/data-views}}
-				{{#data-actions}}{{>Portlet}}{{/data-actions}}
+				{{#data-views}}{{>RightNavigation}}{{/data-views}}
+				{{#data-namespaces}}{{>RightNavigation}}{{/data-namespaces}}
+				{{#data-actions}}{{>RightNavigation}}{{/data-actions}}
 			</div>
 		{{/data-portlets}}
 		</div>
@@ -75,38 +75,10 @@
 			{{#data-portlets-sidebar.array-portlets-rest}}{{>Portlet}}{{/data-portlets-sidebar.array-portlets-rest}}
 			{{#data-portlets.data-languages}}{{>Portlet}}{{/data-portlets.data-languages}}
 		</div>
-		<div id="ft-toggle-menu">{{! TODO in the following two lines}}
+		<div id="ft-toggle-menu">
 			<a id="ft-closemenu" href="#" class="togglecollapse" title="{{msg-headnav-collapsemenu}}">&laquo;</a>
 			<a id="ft-openmenu" href="#" class="toggleexpand" title="{{msg-headnav-expandmenu}}" style="display:none">&raquo;</a>
 		</div>
-
-<!--		<div id="p-logo" class="mw-portlet" role="banner">
-			<a href="{{link-mainpage}}">
-			{{#data-logos}}
-				{{#icon}}<img src="{{.}}" width="40" height="40">{{/icon}}
-				{{#wordmark}}<img src="{{src}}" width="{{width}}" height="{{height}}">{{/wordmark}}
-				{{^wordmark}}<h1>{{msg-sitetitle}}</h1>{{/wordmark}}
-			{{/data-logos}}
-			</a>
-		</div>
-		{{#data-search-box}}
-		<form action="{{form-action}}" role="search" class="mw-portlet" id="p-search">
-			<input type="hidden" name="title" value="{{page-title}}">
-			<h3>
-				<label for="searchInput">{{msg-search}}</label>
-			</h3>
-			{{{html-input}}}
-			{{{html-button-search}}}
-		</form>
-		{{/data-search-box}}
-		{{#data-portlets}}
-		<div id="user-tools">
-		</div>
-		<div id="page-tools">
-		</div>
-		{{/data-portlets}}
-		<div id="site-navigation">
-		</div>-->
 	</div>
 	<div id="footer" class="mw-footer" role="contentinfo" {{{html-user-language-attributes}}}>
 		{{#data-footer}}

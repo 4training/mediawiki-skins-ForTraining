@@ -19,6 +19,18 @@ class SkinForTraining extends SkinMustache {
         $data['msg-headnav-collapsemenu'] = $this->msg('headnav-collapsemenu')->parse();
         $data['msg-headnav-expandmenu'] = $this->msg('headnav-expandmenu')->parse();
 
+        // Add links for the sidebar top-level elements: Links are hard-coded
+        // We didn't find a better solution to implement this as the function SkinTemplate::getPortletData()
+        // is private and can't be overwritten
+        $data['data-portlets-sidebar']['data-portlets-first']['href'] = '/Special:MyLanguage/Start';
+        foreach ($data['data-portlets-sidebar']['array-portlets-rest'] as &$sidebar_block) {
+            if ($sidebar_block['id'] == 'p-headnav-essentials') {
+                $sidebar_block['href'] = '/Special:MyLanguage/Essentials';
+            } elseif ($sidebar_block['id'] == 'p-headnav-more') {
+                $sidebar_block['href'] = '/Special:MyLanguage/More';
+            }
+        }
+
         if (!$this->loggedin) {
             // Show toolbox in the sidebar only for logged-in users
             $data['data-portlets-sidebar']['array-portlets-rest'] = array_filter(

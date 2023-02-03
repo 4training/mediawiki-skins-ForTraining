@@ -1,5 +1,9 @@
 <div role="navigation" id="{{id}}" class="portal" aria-labelledby="{{id}}-label">
-    <h3 id="{{id}}-label" {{{html-user-language-attributes}}}>{{label}}</h3>
+    <h3 id="{{id}}-label" {{{html-user-language-attributes}}}>
+        {{#href}}<a href="{{.}}">{{/href}}
+            {{label}}
+        {{#href}}</a>{{/href}}
+    </h3>
     <div class="body">
         <ul {{{html-user-language-attributes}}}>
             {{{html-items}}}

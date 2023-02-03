@@ -133,10 +133,24 @@ div#p-tb {
 }
 
 .mw-pt-languages-list {
-	padding-left: 0.5em;
+	margin: 0;
+	padding-left: 0;
 	padding-bottom: 0.7em;
 	padding-top: 0.5em;
 	text-align:center;
+}
+
+.mw-pt-languages-list li {
+	list-style-type: none;
+	display: inline;
+}
+
+.mw-pt-languages-list li::after {
+	content: " • ";
+}
+
+.mw-pt-languages-list li:last-of-type::after {
+	content: "";
 }
 
 /* @noflip */

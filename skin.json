@@ -18,7 +18,7 @@
 			"args": [
 				{
 					"name": "fortraining",
-					"responsive": true,
+					"responsive": false,
 					"messages": [
 						"fortraining-no-categories",
 						"sitetitle",

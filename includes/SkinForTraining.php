@@ -21,7 +21,10 @@ class SkinForTraining extends SkinMustache {
 
         if (!$this->loggedin) {
             // Show toolbox in the sidebar only for logged-in users
-            unset($data['data-portlets-sidebar']['array-portlets-rest']);
+            $data['data-portlets-sidebar']['array-portlets-rest'] = array_filter(
+                $data['data-portlets-sidebar']['array-portlets-rest'] ?? [],
+                static fn (array $item): bool => $item['id'] !== 'p-tb',
+            );
 
             // Show right navigation only to logged-in users
             unset($data['data-portlets']['data-namespaces']);

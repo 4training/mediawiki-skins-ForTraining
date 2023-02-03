@@ -65,9 +65,11 @@
 				"desktop",
 				"mobile"
 			],
-			"styles": [
-				"resources/skin.less"
-			]
+			"styles": {
+				"resources/skin.less": {
+					"media": "screen"
+				}
+			}
 		},
 		"skins.fortraining.js": {
 			"targets": [ "desktop", "mobile" ],

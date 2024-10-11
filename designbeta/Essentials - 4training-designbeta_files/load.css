@@ -16,4 +16,77 @@ from /home/ytrakppe/public_html/designbeta/includes/resourceloader/ResourceLoade
 
 Problematic modules: {"skins.fortrainingng":"error"}
 */
-.mw-translate-fuzzy{background-color:#fdd}.mw-pt-translate-header{border-bottom:1px solid #a2a9b1;padding-bottom:4px;font-size:x-small;text-align:center}.mw-pt-translate-header ~ .mw-parser-output .mw-pt-languages{margin-top:-1px}.mw-pt-languages-list a{white-space:nowrap}.mw-pt-languages-selected,.mw-pt-languages-ui{font-weight:bold}.mw-pt-progress{background:transparent right center no-repeat;background-size:9px 9px}#mw-panel .portal .body .mw-pt-progress--none a,.interwiki-x-pagetranslation.mw-pt-progress--none a{color:#ba0000}#mw-panel .portal .body .mw-pt-progress--none a:visited,.interwiki-x-pagetranslation.mw-pt-progress--none a:visited{color:#a55858}@media screen and (min-width:720px){.mw-pt-languages-label{}.mw-pt-languages-list{display:table-cell}}.uls-trigger{background:no-repeat url(/extensions/UniversalLanguageSelector/lib/jquery.uls/images/language.svg?80b0b) left center;background-size:contain;padding-left:24px}#pt-uls{padding-top:0 !important}#pt-uls .uls-trigger{background-image:none;display:inline-block;padding-top:0.5em !important;padding-left:0}#pt-uls .uls-trigger:before{content:'';background-image:url(/extensions/UniversalLanguageSelector/lib/jquery.uls/images/language.svg?80b0b);background-position:left 0.08333333em;background-repeat:no-repeat;background-size:1.33333333em 1.33333333em;padding-top:0.33333333em;padding-left:1.66666667em;opacity:0.67}x:-o-prefocus,body.rtl li#pt-uls{direction:ltr}.client-nojs #pt-uls{display:none}.xdebug-error{display:none}
+.mw-translate-fuzzy {
+  background-color: #fdd;
+}
+.mw-pt-translate-header {
+  border-bottom: 1px solid #a2a9b1;
+  padding-bottom: 4px;
+  font-size: x-small;
+  text-align: center;
+}
+.mw-pt-translate-header ~ .mw-parser-output .mw-pt-languages {
+  margin-top: -1px;
+}
+.mw-pt-languages-list a {
+  white-space: nowrap;
+}
+.mw-pt-languages-selected,
+.mw-pt-languages-ui {
+  font-weight: bold;
+}
+.mw-pt-progress {
+  background: transparent right center no-repeat;
+  background-size: 9px 9px;
+}
+#mw-panel .portal .body .mw-pt-progress--none a,
+.interwiki-x-pagetranslation.mw-pt-progress--none a {
+  color: #ba0000;
+}
+#mw-panel .portal .body .mw-pt-progress--none a:visited,
+.interwiki-x-pagetranslation.mw-pt-progress--none a:visited {
+  color: #a55858;
+}
+@media screen and (min-width: 720px) {
+  .mw-pt-languages-label {
+  }
+  .mw-pt-languages-list {
+    display: table-cell;
+  }
+}
+.uls-trigger {
+  background: no-repeat
+    url(/extensions/UniversalLanguageSelector/lib/jquery.uls/images/language.svg?80b0b)
+    left center;
+  background-size: contain;
+  padding-left: 24px;
+}
+#pt-uls {
+  padding-top: 0 !important;
+}
+#pt-uls .uls-trigger {
+  background-image: none;
+  display: inline-block;
+  padding-top: 0.5em !important;
+  padding-left: 0;
+}
+#pt-uls .uls-trigger:before {
+  content: "";
+  background-image: url(/extensions/UniversalLanguageSelector/lib/jquery.uls/images/language.svg?80b0b);
+  background-position: left 0.08333333em;
+  background-repeat: no-repeat;
+  background-size: 1.33333333em 1.33333333em;
+  padding-top: 0.33333333em;
+  padding-left: 1.66666667em;
+  opacity: 0.67;
+}
+x:-o-prefocus,
+body.rtl li#pt-uls {
+  direction: ltr;
+}
+.client-nojs #pt-uls {
+  display: none;
+}
+.xdebug-error {
+  display: none;
+}

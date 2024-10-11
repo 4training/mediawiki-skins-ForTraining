@@ -1,11 +1,12 @@
 <div id="ft-wrapper">
+  <script src="https://cdn.tailwindcss.com"></script>
 	<div id="ft-header">
 		<a href="/mediawiki/index.php/Special:MyLanguage/Start" title="Visit the main page">
 		{{#data-logos}}{{! Reading logo information from $wgLogos['wordmark'] in LocalSettings.php}}
 			{{#1x}}<img id="ft-logo" src="{{.}}" alt="logo"/>{{/1x}}
 		{{/data-logos}}
 		</a>
-		<h2>1234567890</h2>
+		<h2 class="text-9xl font-bold text-blue-900">1</h2>
 		<div id="ft-header-menu">
 			<a href="/Special:MyLanguage/Essentials">{{msg-headnav-essentials}}</a>
 			<a href="/Special:MyLanguage/More">{{msg-headnav-more}}</a>

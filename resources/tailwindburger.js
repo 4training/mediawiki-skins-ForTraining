@@ -1,8 +1,6 @@
 //adapted from https://codepen.io/Zeeslag/pen/MWpLoKX
 
 mw.loader.using("mediawiki.util").then(function () {
-  console.log("tailwindburger.js loaded");
-
   $(function () {
     // Burger menus
     const burger = document.querySelectorAll(".navbar-burger");

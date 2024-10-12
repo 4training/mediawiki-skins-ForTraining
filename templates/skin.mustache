@@ -2,7 +2,6 @@
   <script src="https://cdn.tailwindcss.com"></script>
 	{{>Header}}
   <main id="ft-content" class="flex-grow container mx-auto px-4 py-8">
-  {{! FIXME: this is hidden }}
     <div id="siteNotice" class="hidden mb-4 bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4">{{{html-site-notice}}}</div>
     {{{html-user-message}}}
     <div class="mw-indicators mw-body-content">
@@ -28,33 +27,36 @@
   </main>
 </div>
 
-  {{! FIXME: this is hidden }}
-  <nav id="mw-navigation" class=" p-4">
-    <div class="container mx-auto flex justify-between">
-      <div id="mw-head" class="flex items-center space-x-4">
-        {{#data-portlets}}
-          {{#data-user-menu}}{{>Portlet}}{{/data-user-menu}}
-          <div id="right-navigation" class="flex space-x-4">
-            {{#data-guidelines}}{{>Guidelines}}{{/data-guidelines}}
-            {{#data-views}}{{>RightNavigation}}{{/data-views}}
-            {{#data-namespaces}}{{>RightNavigation}}{{/data-namespaces}}
-            {{#data-actions}}{{>RightNavigationMore}}{{/data-actions}}
-          </div>
-        {{/data-portlets}}
-      </div>
-    </div>
-  </nav>
-
-  {{! FIXME: this is hidden }}
-  <footer id="footer" class="mw-footer p-6" role="contentinfo" {{{html-user-language-attributes}}}>
+  <footer id="footer" class="mw-footer p-6 bg-gray-100" role="contentinfo" {{{html-user-language-attributes}}}>
     <div class="container mx-auto">
-      {{#data-footer}}
+      <nav id="mw-navigation" class="mb-6">
+        <div class="flex space-between" >
+          <div id="mw-head" class="flex items-center space-x-4">
+            {{#data-portlets}}
+              {{#data-user-menu}}{{>Portlet}}{{/data-user-menu}}
+			  <div> 
+              <div id="right-navigation" class="flex space-x-4">
+                {{#data-guidelines}}{{>Guidelines}}{{/data-guidelines}}
+                {{#data-views}}{{>RightNavigation}}{{/data-views}}
+                {{#data-namespaces}}{{>RightNavigation}}{{/data-namespaces}}
+                {{#data-actions}}{{>RightNavigationMore}}{{/data-actions}}
+              </div>
+            {{/data-portlets}}
+          </div>
+		  <div>
+ {{#data-footer}}
         {{#data-icons}}{{>FooterList}}{{/data-icons}}
         {{#data-info}}{{>FooterList}}{{/data-info}}
       {{/data-footer}}
-      <ul id="footer-login" class="mt-4">
-        <li id="footer-loginlink"><a href="/Special:UserLogin" class="hover">Login</a></li>
+		  </div>
+		  <div>
+<ul id="footer-login" class="mt-4">
+        <li id="footer-loginlink"><a href="/Special:UserLogin" class="font-semibold text-gray-600 hover:bg-blue-50 hover:text-blue-600 rounded hover:cursor-pointer">Login</a></li>
       </ul>
+		  </div>
+		  </div>
+        </div>
+      </nav>
     </div>
   </footer>
 </div>

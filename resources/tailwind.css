@@ -20,10 +20,12 @@
 }
 .portal {
   a {
-    @apply font-semibold text-gray-400 hover:bg-blue-50 hover:text-blue-600 rounded hover:cursor-pointer;
+    @apply text-6xl font-semibold text-gray-800 hover:bg-blue-50 hover:text-blue-600 rounded hover:cursor-pointer;
   }
-  h3 {
-    @apply text-xl font-semibold text-gray-500;
+  li {
+    a {
+      @apply text-4xl font-semibold text-gray-600 hover:bg-blue-50 hover:text-blue-600 rounded hover:cursor-pointer;
+    }
   }
 }
 

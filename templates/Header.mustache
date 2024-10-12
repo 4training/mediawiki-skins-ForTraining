@@ -1,4 +1,4 @@
-  <header  class="text-white pt-12 pb-12 pl-4 pr-4 shadow-lg bg-grey-100">
+  <header  class="text-white py-24 pl-4 pr-4 shadow-lg bg-grey-100">
   <div class="mx-auto flex justify-between items-center">
   <div class="flex items-center gap-8"> 
     <div id="mobile-menu-trigger">
@@ -12,7 +12,7 @@
   <div>
    <a href="/mediawiki/index.php/Special:MyLanguage/Start" title="Visit the main page" class="flex items-center hover:text-yellow-300 transition duration-300">
         {{#data-logos}}
-          {{#1x}}<img id="ft-logo" src="{{.}}" alt="logo" class="h-20 w-auto mr-3"/>{{/1x}}
+          {{#1x}}<img id="ft-logo" src="{{.}}" alt="logo" class="h-24 w-auto mr-3"/>{{/1x}}
         {{/data-logos}}
       </a>
   </div>
@@ -21,15 +21,12 @@
         {{#data-search-box}}
         <div id="p-search" role="search" class="relative">
           <form action="{{form-action}}" role="search" id="search" class="flex items-center">
-            <input type="hidden" name="title" value="{{page-title}}">
+            <input type="hidden" name="title" value="{{page-title}}" >
             <label for="searchInput" class="sr-only">{{msg-search}}</label>
             <div class="relative flex items-center">
-              <input type="search" id="searchInput" class="w-96 border border-gray-300 rounded-md py-3 pl-12 pr-4 text-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Suche 'Schritte der Vergebung'" name="search">
-              <svg class="absolute left-4 top-1/2 transform -translate-y-1/2 h-6 w-6 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
-              </svg>
+              <input type="search" id="searchInput" class="hidden w-96 border border-gray-300 rounded-md py-3 pl-12 pr-4 text-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Suche 'Schritte der Vergebung'" name="search">
             </div>
-            <button type="submit" class="ml-3 bg-red-800 text-white rounded-md py-3 px-6 text-xl hover:bg-red-400 transition duration-300">Search</button>
+            <button type="submit" class="ml-3 bg-red-800 text-white rounded-md py-3 px-6 text-4xl hover:bg-red-400 transition duration-300">Search</button>
           
 		  </form>
         </div>

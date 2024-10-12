@@ -1,0 +1,17 @@
+	{{! FIXME: This has to be in here but the styling needs to be fixed. 
+    Only affects logged in users.
+     }}
+    <div id="mw-navigation">
+		<h2>{{msg-navigation-heading}}</h2>
+		<div id="mw-head">
+		{{#data-portlets}}
+			{{#data-user-menu}}{{>Portlet}}{{/data-user-menu}}
+			<div id="right-navigation">{{! Navigation for logged-in users}}
+				{{#data-guidelines}}{{>Guidelines}}{{/data-guidelines}}
+				{{#data-views}}{{>RightNavigation}}{{/data-views}}
+				{{#data-namespaces}}{{>RightNavigation}}{{/data-namespaces}}
+				{{#data-actions}}{{>RightNavigationMore}}{{/data-actions}}
+			</div>
+		{{/data-portlets}}
+		</div>
+	</div>

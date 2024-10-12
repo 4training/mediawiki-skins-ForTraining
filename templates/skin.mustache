@@ -29,16 +29,8 @@
 </div>
 
   {{! FIXME: this is hidden }}
-  <nav id="mw-navigation" class="hidden bg-green-600 text-white p-4">
-    <h2 class="sr-only">{{msg-navigation-heading}}</h2>
+  <nav id="mw-navigation" class=" p-4">
     <div class="container mx-auto flex justify-between">
-      <div id="mw-panel" class="space-y-4">
-        {{#data-portlets-sidebar.data-portlets-first}}{{>Portlet}}{{/data-portlets-sidebar.data-portlets-first}}
-        {{#data-portlets-sidebar.array-portlets-rest}}{{>Portlet}}{{/data-portlets-sidebar.array-portlets-rest}}
-        {{#data-portlets.data-languages}}{{>Portlet}}{{/data-portlets.data-languages}}
-		
-      
-	  </div>
       <div id="mw-head" class="flex items-center space-x-4">
         {{#data-portlets}}
           {{#data-user-menu}}{{>Portlet}}{{/data-user-menu}}
@@ -50,10 +42,6 @@
           </div>
         {{/data-portlets}}
       </div>
-    </div>
-    <div id="ft-toggle-menu" class="fixed top-1/2 left-0 transform -translate-y-1/2">
-      <a id="ft-closemenu" href="#" class="togglecollapse bg-white text-indigo-600 p-2 rounded-r shadow hover:bg-indigo-100 transition duration-300" title="{{msg-headnav-collapsemenu}}">&laquo;</a>
-      <a id="ft-openmenu" href="#" class="toggleexpand bg-white text-indigo-600 p-2 rounded-r shadow hover:bg-indigo-100 transition duration-300 hidden" title="{{msg-headnav-expandmenu}}">&raquo;</a>
     </div>
   </nav>
 

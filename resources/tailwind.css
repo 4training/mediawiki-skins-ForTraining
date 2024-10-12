@@ -30,3 +30,11 @@
 .mw-list-item {
   @apply font-semibold text-gray-400 hover:bg-blue-50 hover:text-blue-600 rounded hover:cursor-pointer;
 }
+
+.mw-headline {
+  @apply text-2xl font-semibold text-gray-500;
+}
+
+.mw-pt-languages-label {
+  @apply text-gray-500;
+}

@@ -28,8 +28,7 @@
           "styles": [
             "mediawiki.ui.icon",
             "mediawiki.ui.button",
-            "skins.fortraining.styles",
-            "dist/tailwind.css"
+            "skins.fortraining.styles"
           ],
           "scripts": ["skins.fortraining.js"]
         }
@@ -59,6 +58,9 @@
       "targets": ["desktop", "mobile"],
       "styles": {
         "resources/skin.less": {
+          "media": "screen"
+        },
+        "resources/dist/tailwind.css": {
           "media": "screen"
         }
       }

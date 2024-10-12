@@ -1,4 +1,11 @@
 @tailwind base;
+
+@layer base {
+  html {
+    font-size: 24; /* Or any other size you prefer */
+  }
+}
+
 @tailwind components;
 @tailwind utilities;
 

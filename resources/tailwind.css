@@ -18,3 +18,12 @@
 #menu-toggle:checked ~ #hamburger-menu span:nth-child(3) {
   transform: rotate(-45deg) translate(2px, -2px);
 }
+.portal {
+  a {
+    @apply font-semibold text-gray-400 hover:bg-blue-50 hover:text-blue-600 rounded hover:cursor-pointer;
+  }
+}
+
+.mw-list-item {
+  @apply font-semibold text-gray-400 hover:bg-blue-50 hover:text-blue-600 rounded hover:cursor-pointer;
+}

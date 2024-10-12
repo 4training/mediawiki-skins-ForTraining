@@ -71,41 +71,16 @@
     </div>
     <div>
       <ul>
-        <li class="mb-1">
-          <a
-            class="block p-4 text-sm font-semibold text-gray-400 hover:bg-blue-50 hover:text-blue-600 rounded"
-            href="#"
-            >Home</a
-          >
-        </li>
-        <li class="mb-1">
-          <a
-            class="block p-4 text-sm font-semibold text-gray-400 hover:bg-blue-50 hover:text-blue-600 rounded"
-            href="#"
-            >About Us</a
-          >
-        </li>
-        <li class="mb-1">
-          <a
-            class="block p-4 text-sm font-semibold text-gray-400 hover:bg-blue-50 hover:text-blue-600 rounded"
-            href="#"
-            >Services</a
-          >
-        </li>
-        <li class="mb-1">
-          <a
-            class="block p-4 text-sm font-semibold text-gray-400 hover:bg-blue-50 hover:text-blue-600 rounded"
-            href="#"
-            >Pricing</a
-          >
-        </li>
-        <li class="mb-1">
-          <a
-            class="block p-4 text-sm font-semibold text-gray-400 hover:bg-blue-50 hover:text-blue-600 rounded"
-            href="#"
-            >Contact</a
-          >
-        </li>
+	   {{#data-portlets-sidebar.data-portlets-first}}{{>Portlet}}{{/data-portlets-sidebar.data-portlets-first}}
+        {{#data-portlets-sidebar.array-portlets-rest}}{{>Portlet}}{{/data-portlets-sidebar.array-portlets-rest}}
+        {{#data-portlets.data-languages}}{{>Portlet}}{{/data-portlets.data-languages}}
+		<div class="portal">
+       <a href="/Special:MyLanguage/Essentials" >{{msg-headnav-essentials}}</a>
+        <a href="/Special:MyLanguage/More" >{{msg-headnav-more}}</a>
+        <a href="/Special:MyLanguage/Languages" >{{msg-headnav-languages}}</a>
+        <a href="/Special:MyLanguage/FAQ" >{{msg-headnav-faq}}</a>
+        <a href="https://www.4training.net/Special:MyLanguage/Contact">{{msg-contactpage-title}}</a>
+		</div>
       </ul>
     </div>
   </nav>
@@ -146,11 +121,7 @@
         {{#data-portlets-sidebar.data-portlets-first}}{{>Portlet}}{{/data-portlets-sidebar.data-portlets-first}}
         {{#data-portlets-sidebar.array-portlets-rest}}{{>Portlet}}{{/data-portlets-sidebar.array-portlets-rest}}
         {{#data-portlets.data-languages}}{{>Portlet}}{{/data-portlets.data-languages}}
-		       <a href="/Special:MyLanguage/Essentials" class="hover:text-yellow-300 transition duration-300">{{msg-headnav-essentials}}</a>
-        <a href="/Special:MyLanguage/More" class="hover:text-yellow-300 transition duration-300">{{msg-headnav-more}}</a>
-        <a href="/Special:MyLanguage/Languages" class="hover:text-yellow-300 transition duration-300">{{msg-headnav-languages}}</a>
-        <a href="/Special:MyLanguage/FAQ" class="hover:text-yellow-300 transition duration-300">{{msg-headnav-faq}}</a>
-        <a href="https://www.4training.net/Special:MyLanguage/Contact" class="hover:text-yellow-300 transition duration-300">{{msg-contactpage-title}}</a>
+		
       
 	  </div>
       <div id="mw-head" class="flex items-center space-x-4">

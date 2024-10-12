@@ -46,14 +46,14 @@
   </nav>
 
   {{! FIXME: this is hidden }}
-  <footer id="footer" class="hidden mw-footer bg-blue-800 text-white p-6" role="contentinfo" {{{html-user-language-attributes}}}>
+  <footer id="footer" class="mw-footer p-6" role="contentinfo" {{{html-user-language-attributes}}}>
     <div class="container mx-auto">
       {{#data-footer}}
         {{#data-icons}}{{>FooterList}}{{/data-icons}}
         {{#data-info}}{{>FooterList}}{{/data-info}}
       {{/data-footer}}
       <ul id="footer-login" class="mt-4">
-        <li id="footer-loginlink"><a href="/Special:UserLogin" class="hover:text-yellow-300 transition duration-300">Login</a></li>
+        <li id="footer-loginlink"><a href="/Special:UserLogin" class="hover">Login</a></li>
       </ul>
     </div>
   </footer>

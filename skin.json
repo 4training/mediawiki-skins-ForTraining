@@ -1,91 +1,83 @@
 {
-	"name": "ForTraining",
-	"version": "0.1.0",
-	"author": [
-		"holybiber"
-	],
-	"url": "https://github.com/4training/mediawiki-skins-ForTraining",
-	"descriptionmsg": "fortraining-skin-desc",
-	"namemsg": "skinname-fortraining",
-	"license-name": "GPL2",
-	"type": "skin",
-	"requires": {
-		"MediaWiki": ">= 1.39.0"
-	},
-	"ValidSkinNames": {
-		"fortraining": {
-			"class": "SkinForTraining",
-			"args": [
-				{
-					"name": "fortraining",
-					"responsive": false,
-					"messages": [
-						"fortraining-no-categories",
-						"sitetitle",
-						"search",
-						"otherlanguages",
-						"tagline",
-						"navigation-heading"
-					],
-					"styles": [
-						"mediawiki.ui.icon",
-						"mediawiki.ui.button",
-						"skins.fortraining.styles"
-					],
-					"scripts": [
-						"skins.fortraining.js"
-					]
-				}
-			]
-		}
-	},
-	"MessagesDirs": {
-		"ForTraining": [
-			"i18n"
-		]
-	},
-	"AutoloadClasses": {
-		"SkinForTraining": "includes/SkinForTraining.php"
-	},
-	"ResourceModules": {
-		"skins.fortraining.styles": {
-			"class": "ResourceLoaderSkinModule",
-			"features": {
-				"normalize": true,
-				"elements": true,
-				"content-tables": true,
-				"content-links": false,
-				"content-media": false,
-				"content-links-external": false,
-				"interface-message-box": true,
-				"interface-category": false,
-				"toc": true
-			},
-			"targets": [
-				"desktop",
-				"mobile"
-			],
-			"styles": {
-				"resources/skin.less": {
-					"media": "screen"
-				}
-			}
-		},
-		"skins.fortraining.js": {
-			"targets": [ "desktop", "mobile" ],
-			"packageFiles": [
-				"resources/fortraining.js"
-			]
-		}
-	},
-	"ResourceFileModulePaths": {
-		"localBasePath": "",
-		"remoteSkinPath": "ForTraining"
-	},
-	"ResourceModuleSkinStyles": {
-		"fortraining": {
-			"+ext.echo.styles.badge": "resources/extensions/echo.styles.badge.less"
-		}
-	},
-	"manifest_version": 2
+  "name": "ForTraining",
+  "version": "0.1.0",
+  "author": ["holybiber"],
+  "url": "https://github.com/4training/mediawiki-skins-ForTraining",
+  "descriptionmsg": "fortraining-skin-desc",
+  "namemsg": "skinname-fortraining",
+  "license-name": "GPL2",
+  "type": "skin",
+  "requires": {
+    "MediaWiki": ">= 1.39.0"
+  },
+  "ValidSkinNames": {
+    "fortraining": {
+      "class": "SkinForTraining",
+      "args": [
+        {
+          "name": "fortraining",
+          "responsive": false,
+          "messages": [
+            "fortraining-no-categories",
+            "sitetitle",
+            "search",
+            "otherlanguages",
+            "tagline",
+            "navigation-heading"
+          ],
+          "styles": [
+            "mediawiki.ui.icon",
+            "mediawiki.ui.button",
+            "skins.fortraining.styles"
+          ],
+          "scripts": ["skins.tailwindburger.js"]
+        }
+      ]
+    }
+  },
+  "MessagesDirs": {
+    "ForTraining": ["i18n"]
+  },
+  "AutoloadClasses": {
+    "SkinForTraining": "includes/SkinForTraining.php"
+  },
+  "ResourceModules": {
+    "skins.fortraining.styles": {
+      "class": "ResourceLoaderSkinModule",
+      "features": {
+        "normalize": true,
+        "elements": true,
+        "content-tables": true,
+        "content-links": false,
+        "content-media": false,
+        "content-links-external": false,
+        "interface-message-box": true,
+        "interface-category": false,
+        "toc": true
+      },
+      "targets": ["desktop", "mobile"],
+      "styles": {
+        "resources/skin.less": {
+          "media": "screen"
+        },
+        "resources/dist/tailwind.css": {
+          "media": "screen"
+        }
+      }
+    },
+    "skins.tailwindburger.js": {
+      "targets": ["desktop", "mobile"],
+      "packageFiles": ["resources/tailwindburger.js"]
+    }
+  },
+  "ResourceFileModulePaths": {
+    "localBasePath": "",
+    "remoteSkinPath": "ForTraining"
+  },
+  "ResourceModuleSkinStyles": {
+    "fortraining": {
+      "+ext.echo.styles.badge": "resources/extensions/echo.styles.badge.less"
+    }
+  },
+  "manifest_version": 2
 }

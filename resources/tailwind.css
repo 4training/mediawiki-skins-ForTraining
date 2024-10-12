@@ -1,0 +1,66 @@
+@tailwind base;
+
+@layer base {
+  html {
+    font-size: 24;
+  }
+}
+
+@tailwind components;
+@tailwind utilities;
+
+#menu-toggle:checked ~ #mobile-menu {
+  display: block;
+  transform: translateX(0);
+}
+
+#menu-toggle:checked ~ #hamburger-menu span:nth-child(1) {
+  transform: rotate(45deg) translate(2px, 2px);
+}
+
+#menu-toggle:checked ~ #hamburger-menu span:nth-child(2) {
+  opacity: 0;
+}
+
+#menu-toggle:checked ~ #hamburger-menu span:nth-child(3) {
+  transform: rotate(-45deg) translate(2px, -2px);
+}
+.portal {
+  a {
+    @apply text-6xl lg:text-2xl font-semibold text-gray-800 hover:bg-blue-50 hover:text-blue-600 rounded hover:cursor-pointer;
+  }
+  li {
+    a {
+      @apply text-4xl lg:text-xl font-semibold text-gray-600 hover:bg-blue-50 hover:text-blue-600 rounded hover:cursor-pointer;
+    }
+  }
+}
+
+.mw-list-item {
+  @apply font-semibold text-gray-400 hover:bg-blue-50 hover:text-blue-600 rounded hover:cursor-pointer;
+}
+
+.mw-headline {
+  @apply text-2xl lg:text-lg font-semibold text-gray-500;
+}
+
+.mw-pt-languages-label {
+  @apply text-gray-500;
+}
+.mw-indicator {
+  @apply flex items-center text-gray-500 font-normal;
+}
+#mw-indicator-a_pdf {
+  .mw-parser-output {
+    @apply flex justify-center text-gray-500 font-normal;
+  }
+}
+
+.mw-parser-output {
+  b {
+    @apply hidden;
+  }
+  i {
+    @apply hidden;
+  }
+}

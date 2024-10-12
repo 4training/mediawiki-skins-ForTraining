@@ -2,7 +2,7 @@
 
 @layer base {
   html {
-    font-size: 24; /* Or any other size you prefer */
+    font-size: 24;
   }
 }
 
@@ -46,4 +46,21 @@
 
 .mw-pt-languages-label {
   @apply text-gray-500;
+}
+.mw-indicator {
+  @apply flex items-center text-gray-500 font-normal;
+}
+#mw-indicator-a_pdf {
+  .mw-parser-output {
+    @apply flex justify-center text-gray-500 font-normal;
+  }
+}
+
+.mw-parser-output {
+  b {
+    @apply hidden;
+  }
+  i {
+    @apply hidden;
+  }
 }

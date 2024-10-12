@@ -556,7 +556,6 @@ video {
 
 html {
   font-size: 24;
-  /* Or any other size you prefer */
 }
 
 .container {
@@ -1076,6 +1075,39 @@ html {
 .mw-pt-languages-label {
   --tw-text-opacity: 1;
   color: rgb(107 114 128 / var(--tw-text-opacity));
+}
+
+.mw-indicator {
+  display: flex;
+  align-items: center;
+  font-weight: 400;
+  --tw-text-opacity: 1;
+  color: rgb(107 114 128 / var(--tw-text-opacity));
+}
+
+#mw-indicator-a_pdf {
+  .mw-parser-output {
+    display: flex;
+  }
+  .mw-parser-output {
+    justify-content: center;
+  }
+  .mw-parser-output {
+    font-weight: 400;
+  }
+  .mw-parser-output {
+    --tw-text-opacity: 1;
+    color: rgb(107 114 128 / var(--tw-text-opacity));
+  }
+}
+
+.mw-parser-output {
+  b {
+    display: none;
+  }
+  i {
+    display: none;
+  }
 }
 
 .hover\:cursor-pointer:hover {

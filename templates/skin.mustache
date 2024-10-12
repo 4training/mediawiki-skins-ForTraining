@@ -1,88 +1,108 @@
-<div id="ft-wrapper">
-	<div id="ft-header">
-		<a href="/mediawiki/index.php/Special:MyLanguage/Start" title="Visit the main page">
-		{{#data-logos}}{{! Reading logo information from $wgLogos['wordmark'] in LocalSettings.php}}
-			{{#1x}}<img id="ft-logo" src="{{.}}" alt="logo"/>{{/1x}}
-		{{/data-logos}}
-		</a>
-		<h2 class="text-9xl font-bold text-blue-900">1234566</h2>
-		<div id="ft-header-menu">
-			<a href="/Special:MyLanguage/Essentials">{{msg-headnav-essentials}}</a>
-			<a href="/Special:MyLanguage/More">{{msg-headnav-more}}</a>
-			<a href="/Special:MyLanguage/Languages">{{msg-headnav-languages}}</a>
-			<a href="/Special:MyLanguage/FAQ">{{msg-headnav-faq}}</a>
-			<a style="margin-right: 10px" href="https://www.4training.net/Special:MyLanguage/Contact">{{msg-contactpage-title}}</a>
+<div id="ft-wrapper" class="min-h-screen bg-white">
+  <script src="https://cdn.tailwindcss.com"></script>
+<style>
+  .mw-headline {
+    color: green
+  }
+</style>
+  <header id="ft-header" class="text-white p-4 shadow-lg">
+    <div class="container mx-auto flex justify-between items-center">
+      <a href="/mediawiki/index.php/Special:MyLanguage/Start" title="Visit the main page" class="flex items-center hover:text-yellow-300 transition duration-300">
+        {{#data-logos}}
+          {{#1x}}<img id="ft-logo" src="{{.}}" alt="logo" class="h-12 w-auto mr-3"/>{{/1x}}
+        {{/data-logos}}
+      </a>
+      <nav id="ft-header-menu" class="flex items-center space-x-6">
+ 
 
-			{{#data-search-box}}
-			<div id="p-search" role="search">
-			<form action="{{form-action}}" role="search" class="mw-portlet" id="search">
-				<div id="simpleSearch">
-					<input type="hidden" name="title" value="{{page-title}}">
-					<h3  {{{html-user-language-attributes}}}>
-						<label for="searchInput">{{msg-search}}</label>
-					</h3>
-					{{{html-input}}}
-					{{{html-button-search}}}
-				</div>
-			</form>
-			</div>
-			{{/data-search-box}}
-		</div>
-	</div>
+        {{#data-search-box}}
+        <div id="p-search" role="search" class="relative">
+          <form action="{{form-action}}" role="search" id="search" class="flex items-center">
+            <input type="hidden" name="title" value="{{page-title}}">
+            <label for="searchInput" class="sr-only">{{msg-search}}</label>
+            <div class="relative flex items-center">
+              <input type="search" id="searchInput" class="w-64 border border-gray-300 rounded-md py-2 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Suche 'Schritte der Vergebung'" name="search">
+              <svg class="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
+              </svg>
+            </div>
+            <button type="submit" class="ml-2 bg-red-300 text-white rounded-md py-2 px-4 hover:bg-red-400 transition duration-300">Search</button>
+          </form>
+        </div>
+        {{/data-search-box}}
+      </nav>
+    </div>
+  </header>
+  <main id="ft-content" class="flex-grow container mx-auto px-4 py-8">
+  {{! FIXME: this is hidden }}
+    <div id="siteNotice" class="hidden mb-4 bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4">{{{html-site-notice}}}</div>
+    {{{html-user-message}}}
+    <div class="mw-indicators mw-body-content">
+      {{#array-indicators}}
+      <div id="{{id}}" class="{{class}}">{{{html}}}</div>
+      {{/array-indicators}}
+    </div>
+	<div class="text-4xl font-bold"> {{{html-title-heading}}}</div>
+   
+    <div class="bg-white rounded-lg shadow-xl p-6">
+      <div id="contentSub" class="text-sm text-gray-600 mb-4">
+        {{{html-subtitle}}}
+        {{{html-undelete-link}}}
+      </div>
+      <div class="prose max-w-none">
+        {{{html-body-content}}}
+      </div>
+      {{#data-portlets}}
+      {{>CategoryPortlet}}
+      {{/data-portlets}}
+    </div>
+    {{{html-after-content}}}
+  </main>
+</div>
 
-	<div id="ft-content" class="mw-body" role="main">
-		<div id="siteNotice">{{{html-site-notice}}}</div>
-		{{{html-user-message}}}
-		<div class="mw-indicators mw-body-content">
-		{{#array-indicators}}
-		<div id="{{id}}" class="{{class}}">{{{html}}}</div>
-		{{/array-indicators}}
-		</div>
-		{{{html-title-heading}}}
-		<div>
-			<div id="contentSub">
-				{{{html-subtitle}}}
-				{{{html-undelete-link}}}
-			</div>
-			{{{html-body-content}}}
-			{{! todo: replace with .mixin-clearfix }}
-			<div class="visualClear"></div>
-			{{#data-portlets}}
-			{{>CategoryPortlet}}
-			{{/data-portlets}}
-		</div>
-		{{{html-after-content}}}
-	</div>
-	<div id="mw-navigation">
-		<h2>{{msg-navigation-heading}}</h2>
-		<div id="mw-head">
-		{{#data-portlets}}
-			{{#data-user-menu}}{{>Portlet}}{{/data-user-menu}}
-			<div id="right-navigation">{{! Navigation for logged-in users}}
-				{{#data-guidelines}}{{>Guidelines}}{{/data-guidelines}}
-				{{#data-views}}{{>RightNavigation}}{{/data-views}}
-				{{#data-namespaces}}{{>RightNavigation}}{{/data-namespaces}}
-				{{#data-actions}}{{>RightNavigationMore}}{{/data-actions}}
-			</div>
-		{{/data-portlets}}
-		</div>
-		<div id="mw-panel">{{! The main navigation sidebar to the left}}
-			{{#data-portlets-sidebar.data-portlets-first}}{{>Portlet}}{{/data-portlets-sidebar.data-portlets-first}}
-			{{#data-portlets-sidebar.array-portlets-rest}}{{>Portlet}}{{/data-portlets-sidebar.array-portlets-rest}}
-			{{#data-portlets.data-languages}}{{>Portlet}}{{/data-portlets.data-languages}}
-		</div>
-		<div id="ft-toggle-menu">
-			<a id="ft-closemenu" href="#" class="togglecollapse" title="{{msg-headnav-collapsemenu}}">&laquo;</a>
-			<a id="ft-openmenu" href="#" class="toggleexpand" title="{{msg-headnav-expandmenu}}" style="display:none">&raquo;</a>
-		</div>
-	</div>
-	<div id="footer" class="mw-footer" role="contentinfo" {{{html-user-language-attributes}}}>
-		{{#data-footer}}
-		{{!}}{{#data-icons}}{{>FooterList}}{{/data-icons}}
-		{{!}}{{#data-info}}{{>FooterList}}{{/data-info}}
-		{{/data-footer}}
-		<ul id="footer-login" class="noprint"><li id="footer-loginlink"><a href="/Special:UserLogin">Login</a></li></ul>
-		{{! todo: replace with .mixin-clearfix }}
-		<div class="visualClear"></div>
-	</div>
+  {{! FIXME: this is hidden }}
+  <nav id="mw-navigation" class="hidden bg-green-600 text-white p-4">
+    <h2 class="sr-only">{{msg-navigation-heading}}</h2>
+    <div class="container mx-auto flex justify-between">
+      <div id="mw-panel" class="space-y-4">
+        {{#data-portlets-sidebar.data-portlets-first}}{{>Portlet}}{{/data-portlets-sidebar.data-portlets-first}}
+        {{#data-portlets-sidebar.array-portlets-rest}}{{>Portlet}}{{/data-portlets-sidebar.array-portlets-rest}}
+        {{#data-portlets.data-languages}}{{>Portlet}}{{/data-portlets.data-languages}}
+		       <a href="/Special:MyLanguage/Essentials" class="hover:text-yellow-300 transition duration-300">{{msg-headnav-essentials}}</a>
+        <a href="/Special:MyLanguage/More" class="hover:text-yellow-300 transition duration-300">{{msg-headnav-more}}</a>
+        <a href="/Special:MyLanguage/Languages" class="hover:text-yellow-300 transition duration-300">{{msg-headnav-languages}}</a>
+        <a href="/Special:MyLanguage/FAQ" class="hover:text-yellow-300 transition duration-300">{{msg-headnav-faq}}</a>
+        <a href="https://www.4training.net/Special:MyLanguage/Contact" class="hover:text-yellow-300 transition duration-300">{{msg-contactpage-title}}</a>
+      
+	  </div>
+      <div id="mw-head" class="flex items-center space-x-4">
+        {{#data-portlets}}
+          {{#data-user-menu}}{{>Portlet}}{{/data-user-menu}}
+          <div id="right-navigation" class="flex space-x-4">
+            {{#data-guidelines}}{{>Guidelines}}{{/data-guidelines}}
+            {{#data-views}}{{>RightNavigation}}{{/data-views}}
+            {{#data-namespaces}}{{>RightNavigation}}{{/data-namespaces}}
+            {{#data-actions}}{{>RightNavigationMore}}{{/data-actions}}
+          </div>
+        {{/data-portlets}}
+      </div>
+    </div>
+    <div id="ft-toggle-menu" class="fixed top-1/2 left-0 transform -translate-y-1/2">
+      <a id="ft-closemenu" href="#" class="togglecollapse bg-white text-indigo-600 p-2 rounded-r shadow hover:bg-indigo-100 transition duration-300" title="{{msg-headnav-collapsemenu}}">&laquo;</a>
+      <a id="ft-openmenu" href="#" class="toggleexpand bg-white text-indigo-600 p-2 rounded-r shadow hover:bg-indigo-100 transition duration-300 hidden" title="{{msg-headnav-expandmenu}}">&raquo;</a>
+    </div>
+  </nav>
+
+  {{! FIXME: this is hidden }}
+  <footer id="footer" class="hidden mw-footer bg-blue-800 text-white p-6" role="contentinfo" {{{html-user-language-attributes}}}>
+    <div class="container mx-auto">
+      {{#data-footer}}
+        {{#data-icons}}{{>FooterList}}{{/data-icons}}
+        {{#data-info}}{{>FooterList}}{{/data-info}}
+      {{/data-footer}}
+      <ul id="footer-login" class="mt-4">
+        <li id="footer-loginlink"><a href="/Special:UserLogin" class="hover:text-yellow-300 transition duration-300">Login</a></li>
+      </ul>
+    </div>
+  </footer>
 </div>

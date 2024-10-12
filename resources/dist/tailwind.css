@@ -1002,6 +1002,12 @@ html {
     --tw-text-opacity: 1;
     color: rgb(37 99 235 / var(--tw-text-opacity));
   }
+  @media (min-width: 1024px) {
+    a {
+      font-size: 1.5rem;
+      line-height: 2rem;
+    }
+  }
   li {
     a {
       border-radius: 0.25rem;
@@ -1028,6 +1034,12 @@ html {
       --tw-text-opacity: 1;
       color: rgb(37 99 235 / var(--tw-text-opacity));
     }
+    @media (min-width: 1024px) {
+      a {
+        font-size: 1.25rem;
+        line-height: 1.75rem;
+      }
+    }
   }
 }
 
@@ -1052,6 +1064,13 @@ html {
   font-weight: 600;
   --tw-text-opacity: 1;
   color: rgb(107 114 128 / var(--tw-text-opacity));
+}
+
+@media (min-width: 1024px) {
+  .mw-headline {
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+  }
 }
 
 .mw-pt-languages-label {

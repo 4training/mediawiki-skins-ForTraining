@@ -1,11 +1,11 @@
 <div id="ft-wrapper" class="min-h-screen bg-white">
   <script src="https://cdn.tailwindcss.com"></script>
-  <header id="ft-header" class="text-white p-4 shadow-lg bg-blue-800">
-  <div class="container mx-auto flex justify-between items-center">
+  <header  class="text-white pt-12 pb-12 pl-4 pr-4 shadow-lg bg-blue-800">
+  <div class="mx-auto flex justify-between items-center">
   <div class="flex items-center gap-8"> 
     <div id="mobile-menu-trigger">
 			<button class="navbar-burger flex items-center text-blue-600 p-3">
-				<svg class="block h-4 w-4 fill-current" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+				<svg class="block h-12 w-12 fill-current" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
 					<path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"></path>
 				</svg>
 			</button>
@@ -14,7 +14,7 @@
   <div>
    <a href="/mediawiki/index.php/Special:MyLanguage/Start" title="Visit the main page" class="flex items-center hover:text-yellow-300 transition duration-300">
         {{#data-logos}}
-          {{#1x}}<img id="ft-logo" src="{{.}}" alt="logo" class="h-12 w-auto mr-3"/>{{/1x}}
+          {{#1x}}<img id="ft-logo" src="{{.}}" alt="logo" class="h-20 w-auto mr-3"/>{{/1x}}
         {{/data-logos}}
       </a>
   </div>
@@ -28,12 +28,12 @@
             <input type="hidden" name="title" value="{{page-title}}">
             <label for="searchInput" class="sr-only">{{msg-search}}</label>
             <div class="relative flex items-center">
-              <input type="search" id="searchInput" class="w-64 border border-gray-300 rounded-md py-2 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Suche 'Schritte der Vergebung'" name="search">
-              <svg class="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+              <input type="search" id="searchInput" class="w-96 border border-gray-300 rounded-md py-3 pl-12 pr-4 text-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Suche 'Schritte der Vergebung'" name="search">
+              <svg class="absolute left-4 top-1/2 transform -translate-y-1/2 h-6 w-6 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                 <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
               </svg>
             </div>
-            <button type="submit" class="ml-2 bg-red-300 text-white rounded-md py-2 px-4 hover:bg-red-400 transition duration-300">Search</button>
+            <button type="submit" class="ml-3 bg-red-800 text-white rounded-md py-3 px-6 text-xl hover:bg-red-400 transition duration-300">Search</button>
           
 		  </form>
         </div>

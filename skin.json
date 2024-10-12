@@ -30,7 +30,7 @@
             "mediawiki.ui.button",
             "skins.fortraining.styles"
           ],
-          "scripts": ["skins.fortraining.js", "skins.tailwindburger.js"]
+          "scripts": ["skins.tailwindburger.js"]
         }
       ]
     }
@@ -64,10 +64,6 @@
           "media": "screen"
         }
       }
-    },
-    "skins.fortraining.js": {
-      "targets": ["desktop", "mobile"],
-      "packageFiles": ["resources/fortraining.js"]
     },
     "skins.tailwindburger.js": {
       "targets": ["desktop", "mobile"],

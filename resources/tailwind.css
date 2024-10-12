@@ -27,7 +27,3 @@
 .mw-list-item {
   @apply font-semibold text-gray-400 hover:bg-blue-50 hover:text-blue-600 rounded hover:cursor-pointer;
 }
-
-.mw-first-heading {
-  @apply text-xl font-semibold text-green-500;
-}

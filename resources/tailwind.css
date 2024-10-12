@@ -3,5 +3,5 @@
 @tailwind utilities;
 
 .mw-pt-progress {
-  @apply text-red-500;
+  @apply text-red-500 font-bold;
 }

@@ -1,5 +1,3 @@
-alert("tailwindburger.js loaded");
-
 mw.loader.using("mediawiki.util").then(function () {
   console.log("tailwindburger.js loaded");
 

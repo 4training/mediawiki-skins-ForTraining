@@ -1,13 +1,13 @@
 <div id="ft-wrapper" class="min-h-screen bg-white">
-	{{>Header}}
+  {{>Header}}
   <main id="ft-content" class="flex-grow container mx-auto px-4 py-8">
-    <div id="siteNotice" class="hidden mb-4 bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4">{{{html-site-notice}}}</div>
+    <div id="siteNotice"
+         class="hidden mb-4 bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4">{{{html-site-notice}}}</div>
     {{{html-user-message}}}
-	{{>LoggedInUserMenu}}
-	<div class="text-4xl font-bold"> {{{html-title-heading}}}</div>
+    <div class="text-4xl font-bold"> {{{html-title-heading}}}</div>
     <div class="flex mt-4">
       {{#array-indicators}}
-      <div id="{{id}}" class="{{class}}">{{{html}}}</div>
+        <div id="{{id}}" class="{{class}}">{{{html}}}</div>
       {{/array-indicators}}
     </div>
     <div class="bg-white rounded-lg shadow-xl p-6">
@@ -19,36 +19,30 @@
         {{{html-body-content}}}
       </div>
       {{#data-portlets}}
-      {{>CategoryPortlet}}
+        {{>CategoryPortlet}}
       {{/data-portlets}}
     </div>
     {{{html-after-content}}}
   </main>
-</div>
 
-  <footer id="footer" class="mw-footer p-6 bg-gray-100" role="contentinfo" {{{html-user-language-attributes}}}>
+  <footer id="footer" class="mw-footer p-6 bg-gray-100"
+          role="contentinfo" {{{html-user-language-attributes}}}>
     <div class="container mx-auto">
       <nav id="mw-navigation" class="mb-6">
-        <div class="flex space-between" >
+        <div class="flex space-between">
           <div id="mw-head" class="flex items-center space-x-4">
             {{#data-portlets}}
               {{#data-user-menu}}{{>Portlet}}{{/data-user-menu}}
-			  <div> 
-             
+            <div>
             {{/data-portlets}}
           </div>
-		  <div>
- {{#data-footer}}
-        {{#data-icons}}{{>FooterList}}{{/data-icons}}
-        {{#data-info}}{{>FooterList}}{{/data-info}}
-      {{/data-footer}}
-		  </div>
-		  <div>
-<ul id="footer-login" class="mt-4">
-        <li id="footer-loginlink"><a href="/Special:UserLogin" class="text-4xl lg:text-xl font-semibold text-gray-600 hover:bg-blue-50 hover:text-blue-600 rounded hover:cursor-pointer">Login</a></li>
-      </ul>
-		  </div>
-		  </div>
+            <div>
+              {{#data-footer}}
+                {{#data-icons}}{{>FooterList}}{{/data-icons}}
+                {{#data-info}}{{>FooterList}}{{/data-info}}
+              {{/data-footer}}
+            </div>
+          </div>
         </div>
       </nav>
     </div>

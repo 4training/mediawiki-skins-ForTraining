@@ -5,10 +5,17 @@ use MediaWiki\MediaWikiServices;
 /*
  * Our skin class: Customizing some behaviors by overriding methods
  */
-class SkinForTraining extends SkinMustache {
 
-    public function getTemplateData() {
+class SkinForTraining extends SkinMustache
+{
+
+    public function getTemplateData()
+    {
         $data = parent::getTemplateData();
+
+        $data['user-logged-in'] = true;
+
+        $data['icon-user-menu-gear'] = $this->getIconSvg('user-menu-gear');
 
         // Provide a number of system messages we need
         $data['msg-headnav-essentials'] = $this->msg('headnav-essentials')->parse();
@@ -32,10 +39,12 @@ class SkinForTraining extends SkinMustache {
         }
 
         if (!$this->loggedin) {
+            $data['user-logged-in'] = false;
+
             // Show toolbox in the sidebar only for logged-in users
             $data['data-portlets-sidebar']['array-portlets-rest'] = array_filter(
                 $data['data-portlets-sidebar']['array-portlets-rest'] ?? [],
-                static fn (array $item): bool => $item['id'] !== 'p-tb',
+                static fn(array $item): bool => $item['id'] !== 'p-tb',
             );
 
             // Show right navigation only to logged-in users
@@ -56,7 +65,8 @@ class SkinForTraining extends SkinMustache {
         return $data;
     }
 
-    protected function runOnSkinTemplateNavigationHooks( $skin, &$content_navigation ) {
+    protected function runOnSkinTemplateNavigationHooks($skin, &$content_navigation)
+    {
         parent::runOnSkinTemplateNavigationHooks($skin, $content_navigation);
 
         // Don't show login link for all visitors in the top right
@@ -69,27 +79,59 @@ class SkinForTraining extends SkinMustache {
 
         // Add the universal language selector (ULS) to the beginning of the user menu
         $content_navigation["user-menu"] = array("uls" => $content_navigation["user-interface-preferences"]["uls"])
-             + $content_navigation["user-menu"];
+            + $content_navigation["user-menu"];
     }
 
-    protected function getFooterLinks(): array {
+    protected function getFooterLinks(): array
+    {
         $data = parent::getFooterLinks();
 
         // Only show "This page was last edited on ..." for logged-in users
         if (!$this->loggedin) {
             unset($data['info']);
+
+            // Set the login link for logged-out users
+            $data["info"]["login"] = '
+            <div>
+              <ul id="footer-login" class="mt-4">
+                <li id="footer-loginlink">
+                  <a href="/Special:UserLogin"
+                     class="text-2xl lg:text-6xl font-semibold hover:bg-blue-50 hover:text-blue-600 hover:cursor-pointer">
+                    Login
+                  </a>
+                </li>
+              </ul>
+            </div>';
         }
 
         // Another way to add the login link... maybe use this instead of writing it in skin.mustache?
         // $data["info"]["login"] = '<a href="/Special:UserLogin">Login</a></li>';
+
         return $data;
+    }
+
+    /**
+     * Load SVG icon from the assets/icons folder
+     *
+     * @param string $iconName Name of the icon file (without .svg extension)
+     * @return string The SVG content as an HTML-safe string
+     */
+    private function getIconSvg( $iconName ) {
+        $iconPath = __DIR__ . '/../resources/assets/icons/' . $iconName . '.svg';
+
+        if ( file_exists( $iconPath ) ) {
+            return file_get_contents( $iconPath );
+        }
+
+        return '';
     }
 }
 
 // for debugging
-function console_log( $data ){
+function console_log($data)
+{
     echo '<script>';
-    echo 'console.log('. json_encode( $data ) .')';
+    echo 'console.log(' . json_encode($data) . ')';
     echo '</script>';
 }
 

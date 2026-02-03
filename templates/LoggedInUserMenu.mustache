@@ -5,7 +5,9 @@
 		<h2>{{msg-navigation-heading}}</h2>
 		<div id="mw-head">
 		{{#data-portlets}}
-			{{#data-user-menu}}{{>Portlet}}{{/data-user-menu}}
+      <div>
+        {{#data-user-menu}}{{>Portlet}}{{/data-user-menu}}
+      </div>
 			<div id="right-navigation">{{! Navigation for logged-in users}}
 				{{#data-guidelines}}{{>Guidelines}}{{/data-guidelines}}
 				{{#data-views}}{{>RightNavigation}}{{/data-views}}

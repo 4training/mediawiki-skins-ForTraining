@@ -1,0 +1,107 @@
+/**
+ * User Menu Styles
+ * Additional styling for desktop dropdown and mobile slide-in menus
+ */
+
+/* Ensure smooth transitions */
+#mobile-user-menu {
+  transition: transform 150ms ease-in-out;
+}
+
+/* Desktop dropdown animation */
+#desktop-user-menu {
+  animation: fadeIn 150ms ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Mobile overlay fade-in */
+#mobile-user-menu-overlay {
+  animation: overlayFadeIn 150ms ease-in-out;
+}
+
+@keyframes overlayFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Prevent body scroll when mobile menu is open */
+body.user-menu-open {
+  overflow: hidden;
+}
+
+/* Style for menu items inside LoggedInUserMenu portlet */
+#desktop-user-menu .vector-menu-content-list,
+#mobile-user-menu .vector-menu-content-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#desktop-user-menu .vector-menu-content-list li,
+#mobile-user-menu .vector-menu-content-list li {
+  margin: 0;
+}
+
+#desktop-user-menu .vector-menu-content-list a,
+#mobile-user-menu .vector-menu-content-list a {
+  display: block;
+  padding: 0.75rem 1rem;
+  color: #374151;
+  text-decoration: none;
+  transition: background-color 150ms ease-in-out;
+}
+
+#desktop-user-menu .vector-menu-content-list a:hover,
+#mobile-user-menu .vector-menu-content-list a:hover {
+  background-color: #f3f4f6;
+}
+
+/* Desktop dropdown specific styles */
+#desktop-user-menu {
+  min-width: 200px;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+/* Mobile menu specific styles */
+#mobile-user-menu {
+  max-width: 85vw;
+}
+
+/* Focus styles for accessibility */
+#mobile-user-menu-trigger:focus,
+#desktop-user-menu-trigger:focus,
+#mobile-user-menu-close:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1023px) {
+  /* Hide desktop menu on mobile */
+  #desktop-user-menu {
+    display: none !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  /* Hide mobile menu elements on desktop */
+  #mobile-user-menu,
+  #mobile-user-menu-overlay {
+    display: none !important;
+  }
+}

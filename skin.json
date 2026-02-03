@@ -16,7 +16,7 @@
       "args": [
         {
           "name": "fortraining",
-          "responsive": false,
+          "responsive": true,
           "messages": [
             "fortraining-no-categories",
             "sitetitle",
@@ -28,9 +28,13 @@
           "styles": [
             "mediawiki.ui.icon",
             "mediawiki.ui.button",
-            "skins.fortraining.styles"
+            "skins.fortraining.styles",
+            "skins.fortraining.usermenu.styles"
           ],
-          "scripts": ["skins.tailwindburger.js"]
+          "scripts": [
+            "skins.tailwindburger.js",
+            "skins.fortraining.usermenu"
+          ]
         }
       ]
     }
@@ -42,6 +46,16 @@
     "SkinForTraining": "includes/SkinForTraining.php"
   },
   "ResourceModules": {
+    "skins.fortraining.icons": {
+      "targets": ["desktop", "mobile"],
+      "packageFiles": [
+        "resources/assets/icons/user-menu-gear.svg"
+      ]
+    },
+    "skins.fortraining.usermenu.styles": {
+      "targets": ["desktop", "mobile"],
+      "styles": ["resources/assets/css/user-menu-styles.css"]
+    },
     "skins.fortraining.styles": {
       "class": "ResourceLoaderSkinModule",
       "features": {
@@ -68,6 +82,10 @@
     "skins.tailwindburger.js": {
       "targets": ["desktop", "mobile"],
       "packageFiles": ["resources/tailwindburger.js"]
+    },
+    "skins.fortraining.usermenu": {
+      "targets": ["desktop", "mobile"],
+      "packageFiles": ["resources/user-menu-toggle.js"]
     }
   },
   "ResourceFileModulePaths": {

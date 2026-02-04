@@ -99,14 +99,14 @@ class SkinForTraining extends SkinMustache
             // Set the login link for logged-out users
             $data["info"]["login"] = '
             <div>
-              <ul id="footer-login" class="mt-4">
-                <li id="footer-loginlink">
+              <div id="footer-login" class="mt-1">
+                <div id="footer-loginlink">
                   <a href="/Special:UserLogin"
-                     class="text-2xl lg:text-6xl font-semibold hover:bg-blue-50 hover:text-blue-600 hover:cursor-pointer">
+                     class="text-lg lg:text-xl font-semibold hover:bg-blue-50 hover:text-blue-600 hover:cursor-pointer">
                     Login
                   </a>
-                </li>
-              </ul>
+                </div>
+              </div>
             </div>';
         }
 

@@ -31,14 +31,16 @@
       <nav id="mw-navigation" class="mb-6">
         <div class="flex space-between">
           <div id="mw-head" class="flex items-center space-x-4">
-            {{#data-portlets}}
-              {{#data-user-menu}}{{>Portlet}}{{/data-user-menu}}
-            <div>
-            {{/data-portlets}}
-          </div>
             <div>
               {{#data-footer}}
                 {{#data-icons}}{{>FooterList}}{{/data-icons}}
+                {{^user-logged-in}}
+                  {{#data-portlets.data-user-interface-preferences}}
+                    <div class="footer-language-selector mt-2 list-none text-lg">
+                      {{{html-items}}}
+                    </div>
+                  {{/data-portlets.data-user-interface-preferences}}
+                {{/user-logged-in}}
                 {{#data-info}}{{>FooterList}}{{/data-info}}
               {{/data-footer}}
             </div>

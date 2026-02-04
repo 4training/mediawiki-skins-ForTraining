@@ -38,6 +38,12 @@ class SkinForTraining extends SkinMustache
             }
         }
 
+        // Remove the title for the p-personal menu object
+        if (isset($data['data-portlets']['data-user-menu'])) {
+            unset($data['data-portlets']['data-personal']['label']);
+            unset($data['data-portlets']['data-user-menu']['label']);
+        }
+
         if (!$this->loggedin) {
             $data['user-logged-in'] = false;
 

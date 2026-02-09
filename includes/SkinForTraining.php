@@ -13,6 +13,9 @@ class SkinForTraining extends SkinMustache
     {
         $data = parent::getTemplateData();
 
+        // Extract and structure translation language data
+        $data = $this->extractTranslationLanguages($data);
+
         $data['user-logged-in'] = true;
 
         $data['icon-user-menu-gear'] = $this->getIconSvg('user-menu-gear');
@@ -122,23 +125,115 @@ class SkinForTraining extends SkinMustache
      * @param string $iconName Name of the icon file (without .svg extension)
      * @return string The SVG content as an HTML-safe string
      */
-    private function getIconSvg( $iconName ) {
+    private function getIconSvg($iconName)
+    {
         $iconPath = __DIR__ . '/../resources/assets/icons/' . $iconName . '.svg';
 
-        if ( file_exists( $iconPath ) ) {
-            return file_get_contents( $iconPath );
+        if (file_exists($iconPath)) {
+            return file_get_contents($iconPath);
         }
 
         return '';
     }
-}
+
+    /**
+     * Extract translation languages from the Translate extension's HTML output
+     * and structure them as data for the template
+     *
+     * @param array $data Template data array
+     * @return array Modified template data with translation-languages key
+     */
+    private function extractTranslationLanguages(array $data): array
+    {
+        if (!isset($data['html-body-content'])) {
+            return $data;
+        }
+
+        $htmlContent = $data['html-body-content'];
+
+        // Parse HTML content
+        $dom = new DOMDocument();
+        @$dom->loadHTML('<?xml encoding="UTF-8">' . $htmlContent, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+        $xpath = new DOMXPath($dom);
+
+        // Find the translate extension language selector
+        $langDiv = $xpath->query('//div[contains(@class, "mw-pt-languages")]')->item(0);
+
+        if (!$langDiv) {
+            return $data;
+        }
+
+        // Extract language links
+        $languages = $this->parseLanguageLinks($xpath, $langDiv);
+
+        // Find current language
+        $currentLang = $this->getCurrentLanguage($xpath, $langDiv);
+
+        // Add structured data
+        $data['translation-languages'] = [
+            'has-languages' => !empty($languages),
+            'current' => $currentLang,
+            'count' => count($languages) + 1, // +1 for current language
+            'languages' => $languages
+        ];
+
+        // Remove the language selector from body content
+        $langDiv->parentNode->removeChild($langDiv);
+        $data['html-body-content'] = $dom->saveHTML();
+
+        return $data;
+    }
+
+    /**
+     * Parse language links from the translate extension's language selector
+     *
+     * @param DOMXPath $xpath XPath query object
+     * @param DOMElement $langDiv The language selector container element
+     * @return array Array of language link data
+     */
+    private function parseLanguageLinks(DOMXPath $xpath, DOMElement $langDiv): array
+    {
+        $languages = [];
+        $links = $xpath->query('.//li/a', $langDiv);
+
+        foreach ($links as $link) {
+            $languages[] = [
+                'href' => $link->getAttribute('href'),
+                'title' => $link->getAttribute('title'),
+                'lang' => $link->getAttribute('lang'),
+                'dir' => $link->getAttribute('dir'),
+                'text' => trim($link->textContent),
+                'progress-class' => $link->getAttribute('class')
+            ];
+        }
+
+        return $languages;
+    }
+
+    /**
+     * Get the current language name from the translate extension's language selector
+     *
+     * @param DOMXPath $xpath XPath query object
+     * @param DOMElement $langDiv The language selector container element
+     * @return string Current language name
+     */
+    private function getCurrentLanguage(DOMXPath $xpath, DOMElement $langDiv): string
+    {
+        $currentSpan = $xpath->query(
+            './/li/span[contains(@class, "mw-pt-languages-selected")]',
+            $langDiv
+        )->item(0);
+
+        return $currentSpan ? trim($currentSpan->textContent) : 'English';
+    }
 
 // for debugging
-function console_log($data)
-{
-    echo '<script>';
-    echo 'console.log(' . json_encode($data) . ')';
-    echo '</script>';
+    function console_log($data)
+    {
+        echo '<script>';
+        echo 'console.log(' . json_encode($data) . ')';
+        echo '</script>';
+    }
 }
 
 ?>

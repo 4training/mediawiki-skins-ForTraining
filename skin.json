@@ -29,11 +29,14 @@
             "mediawiki.ui.icon",
             "mediawiki.ui.button",
             "skins.fortraining.styles",
-            "skins.fortraining.usermenu.styles"
+            "skins.fortraining.usermenu.styles",
+            "skins.fortraining.language-menu.styles"
           ],
           "scripts": [
             "skins.tailwindburger.js",
-            "skins.fortraining.usermenu"
+            "skins.fortraining.usermenu",
+            "skins.fortraining.dropdown-languages-menu",
+            "skins.fortraining.set-editor-to-expanded"
           ]
         }
       ]
@@ -55,6 +58,10 @@
     "skins.fortraining.usermenu.styles": {
       "targets": ["desktop", "mobile"],
       "styles": ["resources/assets/css/user-menu-styles.css"]
+    },
+    "skins.fortraining.language-menu.styles": {
+      "targets": ["desktop", "mobile"],
+      "styles": ["resources/assets/css/dropdown-languages.css"]
     },
     "skins.fortraining.styles": {
       "class": "ResourceLoaderSkinModule",
@@ -86,6 +93,14 @@
     "skins.fortraining.usermenu": {
       "targets": ["desktop", "mobile"],
       "packageFiles": ["resources/user-menu-toggle.js"]
+    },
+    "skins.fortraining.dropdown-languages-menu": {
+      "targets": ["desktop", "mobile"],
+      "packageFiles": ["resources/dropdown-languages-toggle.js"]
+    },
+    "skins.fortraining.set-editor-to-expanded": {
+      "targets": ["desktop", "mobile"],
+      "packageFiles": ["resources/set-editor-to-expanded.js"]
     }
   },
   "ResourceFileModulePaths": {

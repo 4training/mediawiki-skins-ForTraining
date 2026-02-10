@@ -721,6 +721,10 @@ html {
   height: 2rem;
 }
 
+.h-2 {
+  height: 0.5rem;
+}
+
 .min-h-screen {
   min-height: 100vh;
 }
@@ -747,6 +751,10 @@ html {
 
 .w-auto {
   width: auto;
+}
+
+.w-2 {
+  width: 0.5rem;
 }
 
 .max-w-2xl {

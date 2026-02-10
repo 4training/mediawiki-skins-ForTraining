@@ -19,6 +19,15 @@
   background: #F67171;
 }
 
+.language-menu-icon {
+  display: none;
+}
+
+.current-lang,
+.lang-count {
+  display: inline;
+}
+
 .language-dropdown-list {
   position: absolute;
   top: 100%;
@@ -53,4 +62,35 @@
 
 .language-dropdown-list a:hover {
   background: #EFF6FF;
+}
+
+
+/* Mobile styles */
+
+@media (max-width: 768px) {
+  .language-dropdown-btn {
+    padding: 8px;
+    min-width: 40px;
+    justify-content: center;
+  }
+
+  .language-menu-icon {
+    display: inline;
+    font-size: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+  }
+
+
+  .current-lang,
+  .lang-count,
+  .arrow {
+    display: none;
+  }
 }

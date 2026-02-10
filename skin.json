@@ -52,7 +52,8 @@
     "skins.fortraining.icons": {
       "targets": ["desktop", "mobile"],
       "packageFiles": [
-        "resources/assets/icons/user-menu-gear.svg"
+        "resources/assets/icons/user-menu-gear.svg",
+        "resources/assets/icons/language-menu.svg"
       ]
     },
     "skins.fortraining.usermenu.styles": {

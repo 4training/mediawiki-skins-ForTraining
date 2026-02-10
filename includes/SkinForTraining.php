@@ -19,6 +19,7 @@ class SkinForTraining extends SkinMustache
         $data['user-logged-in'] = true;
 
         $data['icon-user-menu-gear'] = $this->getIconSvg('user-menu-gear');
+        $data['icon-language-menu'] = $this->getIconSvg('language-menu');
 
         // Provide a number of system messages we need
         $data['msg-headnav-essentials'] = $this->msg('headnav-essentials')->parse();

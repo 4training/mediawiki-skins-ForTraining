@@ -697,6 +697,9 @@ html {
   margin-top: 1rem;
 }
 
+.mt-\[-40px\] {
+  margin-top: -40px;
+}
 .block {
   display: block;
 }
@@ -719,10 +722,6 @@ html {
 
 .h-8 {
   height: 2rem;
-}
-
-.h-2 {
-  height: 0.5rem;
 }
 
 .min-h-screen {
@@ -751,10 +750,6 @@ html {
 
 .w-auto {
   width: auto;
-}
-
-.w-2 {
-  width: 0.5rem;
 }
 
 .max-w-2xl {
@@ -796,6 +791,10 @@ html {
 
 .items-center {
   align-items: center;
+}
+
+.justify-end {
+  justify-content: flex-end;
 }
 
 .justify-center {
@@ -1264,6 +1263,10 @@ html {
 }
 
 @media (min-width: 1024px) {
+  .lg\:mt-0 {
+    margin-top: 0px;
+  }
+
   .lg\:flex {
     display: flex;
   }

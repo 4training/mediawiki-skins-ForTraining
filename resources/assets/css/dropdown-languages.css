@@ -64,6 +64,11 @@
   background: #EFF6FF;
 }
 
+/* Only change the margin-top when PDF and ODT buttons are present */
+#ft-content:has(#mw-indicator-a_pdf) .language-dropdown-btn,
+#ft-content:has(#mw-indicator-c_odt) .language-dropdown-btn {
+  margin-top: -40px;
+}
 
 /* Mobile styles */
 
@@ -86,7 +91,6 @@
       display: block;
     }
   }
-
 
   .current-lang,
   .lang-count,

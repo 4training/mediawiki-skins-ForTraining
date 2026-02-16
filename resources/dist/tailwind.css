@@ -700,6 +700,15 @@ html {
 .mt-\[-40px\] {
   margin-top: -40px;
 }
+
+.ml-1 {
+  margin-left: 0.25rem;
+}
+
+.ml-0\.5 {
+  margin-left: 0.125rem;
+}
+
 .block {
   display: block;
 }
@@ -1263,10 +1272,6 @@ html {
 }
 
 @media (min-width: 1024px) {
-  .lg\:mt-0 {
-    margin-top: 0px;
-  }
-
   .lg\:flex {
     display: flex;
   }
@@ -1311,5 +1316,10 @@ html {
 
   .lg\:p-3 {
     padding: 0.75rem;
+  }
+
+  .lg\:text-lg {
+    font-size: 1.125rem;
+    line-height: 1.75rem;
   }
 }

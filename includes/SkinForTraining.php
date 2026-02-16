@@ -48,19 +48,11 @@ class SkinForTraining extends SkinMustache
             unset($data['data-portlets']['data-user-menu']['label']);
         }
 
+        // Parse the sidebar menus into accordion
+        $data = $this->processSidebarPortlets($data);
+
         if (!$this->loggedin) {
             $data['user-logged-in'] = false;
-
-            // Show toolbox in the sidebar only for logged-in users
-            $data['data-portlets-sidebar']['array-portlets-rest'] = array_filter(
-                $data['data-portlets-sidebar']['array-portlets-rest'] ?? [],
-                static fn(array $item): bool => $item['id'] !== 'p-tb',
-            );
-
-            // Show right navigation only to logged-in users
-            unset($data['data-portlets']['data-namespaces']);
-            unset($data['data-portlets']['data-views']);
-            unset($data['data-portlets']['data-actions']);
         } else {
             // Show namespaces (page / discussion page) only to admin
             $groupManager = MediaWikiServices::getInstance()->getUserGroupManager();
@@ -226,6 +218,83 @@ class SkinForTraining extends SkinMustache
         )->item(0);
 
         return $currentSpan ? trim($currentSpan->textContent) : 'English';
+    }
+
+    /**
+     * Process sidebar portlets to extract items as structured data
+     * Handles both data-portlets-first and array-portlets-rest
+     *
+     * @param array $data Template data array
+     * @return array Modified template data with structured sidebar items
+     */
+    private function processSidebarPortlets(array $data): array {
+        if (!isset($data['data-portlets-sidebar'])) {
+            return $data;
+        }
+
+        $sidebar = &$data['data-portlets-sidebar'];
+
+        // Process data-portlets-first (single portlet object)
+        if (isset($sidebar['data-portlets-first']) && !empty($sidebar['data-portlets-first'])) {
+            $this->processPortlet($sidebar['data-portlets-first']);
+        }
+
+        // Process array-portlets-rest (array of portlets)
+        if (isset($sidebar['array-portlets-rest']) && is_array($sidebar['array-portlets-rest'])) {
+            foreach ($sidebar['array-portlets-rest'] as &$portlet) {
+                $this->processPortlet($portlet);
+            }
+        }
+
+        return $data;
+    }
+
+    /**
+     * Process a single portlet to determine its type and extract items
+     *
+     * @param array $portlet Portlet data (passed by reference)
+     */
+    private function processPortlet(array &$portlet): void {
+        $portlet['array-items'] = $this->parsePortletItems($portlet['html-items'] ?? '');
+        $portlet['item-count'] = count($portlet['array-items']);
+
+        // Determine if this is a direct link or a container with sub-items
+        $portlet['is-direct-link'] = ($portlet['item-count'] === 0 && !empty($portlet['href']));
+        $portlet['has-children'] = ($portlet['item-count'] > 0);
+    }
+
+    /**
+     * Parse HTML list items into structured array
+     *
+     * @param string $htmlItems HTML string of list items
+     * @return array Array of item data
+     */
+    private function parsePortletItems(string $htmlItems): array {
+        if (empty($htmlItems)) {
+            return [];
+        }
+
+        $dom = new DOMDocument();
+        @$dom->loadHTML('<?xml encoding="UTF-8"><ul>' . $htmlItems . '</ul>', LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+        $xpath = new DOMXPath($dom);
+
+        $items = [];
+        $listItems = $xpath->query('//li');
+
+        foreach ($listItems as $li) {
+            $link = $xpath->query('.//a', $li)->item(0);
+
+            if ($link) {
+                $items[] = [
+                    'id' => $li->getAttribute('id'),
+                    'class' => $li->getAttribute('class'),
+                    'href' => $link->getAttribute('href'),
+                    'text' => trim($link->textContent)
+                ];
+            }
+        }
+
+        return $items;
     }
 
 // for debugging

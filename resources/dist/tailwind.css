@@ -701,14 +701,6 @@ html {
   margin-top: -40px;
 }
 
-.ml-1 {
-  margin-left: 0.25rem;
-}
-
-.ml-0\.5 {
-  margin-left: 0.125rem;
-}
-
 .block {
   display: block;
 }
@@ -988,10 +980,6 @@ html {
 
 .font-bold {
   font-weight: 700;
-}
-
-.leading-none {
-  line-height: 1;
 }
 
 .text-gray-400 {
@@ -1316,10 +1304,5 @@ html {
 
   .lg\:p-3 {
     padding: 0.75rem;
-  }
-
-  .lg\:text-lg {
-    font-size: 1.125rem;
-    line-height: 1.75rem;
   }
 }

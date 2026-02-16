@@ -1,0 +1,66 @@
+<nav class="sidebar-accordion">
+  {{! First portlet }}
+  {{#data-portlets-sidebar.data-portlets-first}}
+    {{#is-direct-link}}
+    {{! Direct link - no accordion }}
+      <div class="sidebar-direct-link">
+        <a href="{{href}}" class="sidebar-link text-lg">{{label}}</a>
+      </div>
+    {{/is-direct-link}}
+
+    {{#has-children}}
+    {{! Container with children - show accordion }}
+      <div class="accordion-section">
+        <button class="accordion-header text-lg"
+                aria-controls="{{id}}-content"
+                data-accordion-toggle>
+          <span class="accordion-title">{{label}}</span>
+          <span class="accordion-icon">▼</span>
+        </button>
+
+        <div id="{{id}}-content" class="accordion-content">
+          <ul class="accordion-list">
+            {{#array-items}}
+              <li class="{{class}}">
+                <a href="{{href}}">{{text}}</a>
+              </li>
+            {{/array-items}}
+          </ul>
+        </div>
+      </div>
+    {{/has-children}}
+  {{/data-portlets-sidebar.data-portlets-first}}
+
+  {{! Rest of the portlets }}
+  {{#data-portlets-sidebar.array-portlets-rest}}
+    {{#is-direct-link}}
+    {{! Direct link - no accordion }}
+      <div class="sidebar-direct-link">
+        <a href="{{href}}" class="sidebar-link text-lg">{{label}}</a>
+      </div>
+    {{/is-direct-link}}
+
+    {{#has-children}}
+    {{! Container with children - show accordion }}
+      <div class="accordion-section">
+        <button class="accordion-header text-lg"
+                aria-expanded="false"
+                aria-controls="{{id}}-content"
+                data-accordion-toggle>
+          <span class="accordion-title">{{label}}</span>
+          <span class="accordion-icon">▼</span>
+        </button>
+
+        <div id="{{id}}-content" class="accordion-content" hidden>
+          <ul class="accordion-list">
+            {{#array-items}}
+              <li class="{{class}}">
+                <a href="{{href}}">{{text}}</a>
+              </li>
+            {{/array-items}}
+          </ul>
+        </div>
+      </div>
+    {{/has-children}}
+  {{/data-portlets-sidebar.array-portlets-rest}}
+</nav>

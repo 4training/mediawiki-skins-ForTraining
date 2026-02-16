@@ -30,13 +30,15 @@
             "mediawiki.ui.button",
             "skins.fortraining.styles",
             "skins.fortraining.usermenu.styles",
-            "skins.fortraining.language-menu.styles"
+            "skins.fortraining.language-menu.styles",
+            "skins.fortraining.burger-menu-accordion.styles"
           ],
           "scripts": [
             "skins.tailwindburger.js",
             "skins.fortraining.usermenu",
             "skins.fortraining.dropdown-languages-menu",
-            "skins.fortraining.set-editor-to-expanded"
+            "skins.fortraining.set-editor-to-expanded",
+            "skins.fortraining.burgermenu-accordion"
           ]
         }
       ]
@@ -63,6 +65,10 @@
     "skins.fortraining.language-menu.styles": {
       "targets": ["desktop", "mobile"],
       "styles": ["resources/assets/css/dropdown-languages.css"]
+    },
+    "skins.fortraining.burger-menu-accordion.styles": {
+      "targets": ["desktop", "mobile"],
+      "styles": ["resources/assets/css/burger-menu-accordion.css"]
     },
     "skins.fortraining.styles": {
       "class": "ResourceLoaderSkinModule",
@@ -102,6 +108,10 @@
     "skins.fortraining.set-editor-to-expanded": {
       "targets": ["desktop", "mobile"],
       "packageFiles": ["resources/set-editor-to-expanded.js"]
+    },
+    "skins.fortraining.burgermenu-accordion": {
+      "targets": ["desktop", "mobile"],
+      "packageFiles": ["resources/burger-menu-accordion.js"]
     }
   },
   "ResourceFileModulePaths": {

@@ -4,6 +4,18 @@
 (function() {
   'use strict';
 
+  // Fix the margin-top of the language dropdown button when PDF and ODT indicators are present
+  // This is only for older browsers that don't support CSS ':has()'
+  document.addEventListener('DOMContentLoaded', function() {
+    const hasPdfIndicator = document.getElementById('mw-indicator-a_pdf');
+    const hasOdtIndicator = document.getElementById('mw-indicator-c_odt');
+    const langBtn = document.querySelector('.language-dropdown-btn');
+
+    if ((hasPdfIndicator || hasOdtIndicator) && langBtn) {
+      langBtn.style.marginTop = '-40px';
+    }
+  });
+
   function initLanguageDropdown() {
     const dropdownButtons = document.querySelectorAll('.language-dropdown-btn');
 

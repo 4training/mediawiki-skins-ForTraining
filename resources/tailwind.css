@@ -71,11 +71,14 @@
   .fourt-infobox {
     @apply float-none;
   }
+  a {
+    @apply px-1;
+  }
   b {
-    @apply hidden;
+    @apply px-1;
   }
   i {
-    @apply hidden;
+    @apply px-1;
   }
 }
 

@@ -697,10 +697,6 @@ html {
   margin-top: 1rem;
 }
 
-.mt-\[-40px\] {
-  margin-top: -40px;
-}
-
 .block {
   display: block;
 }
@@ -1197,11 +1193,17 @@ html {
   .fourt-infobox {
     float: none;
   }
+  a {
+    padding-left: 0.25rem;
+    padding-right: 0.25rem;
+  }
   b {
-    display: none;
+    padding-left: 0.25rem;
+    padding-right: 0.25rem;
   }
   i {
-    display: none;
+    padding-left: 0.25rem;
+    padding-right: 0.25rem;
   }
 }
 

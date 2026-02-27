@@ -1205,6 +1205,13 @@ html {
     padding-left: 0.25rem;
     padding-right: 0.25rem;
   }
+  td a {
+    display: flex;
+    justify-content: center;
+  }
+  td a {
+    padding: 1rem;
+  }
 }
 
 @media (min-width: 768px) {

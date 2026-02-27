@@ -80,6 +80,11 @@
   i {
     @apply px-1;
   }
+  td a {
+    display: flex;
+    justify-content: center;
+    @apply p-4;
+  }
 }
 
 @media (min-width: 768px) {

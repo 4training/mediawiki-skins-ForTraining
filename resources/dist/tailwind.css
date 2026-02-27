@@ -1205,13 +1205,16 @@ html {
     padding-left: 0.25rem;
     padding-right: 0.25rem;
   }
-  td a {
-    display: flex;
-    justify-content: center;
-  }
-  td a {
-    padding: 1rem;
-  }
+}
+
+.mw-parser-output td:has(a > img[alt="Relationship Triangle.png"]) a {
+  display: inline-block;
+}
+
+.mw-parser-output ul li:has(a > img) {
+  display: flex;
+  align-items: center;
+  gap: 0.20rem;
 }
 
 @media (min-width: 768px) {

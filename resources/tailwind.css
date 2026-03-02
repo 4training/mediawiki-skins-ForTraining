@@ -25,10 +25,12 @@
 #menu-toggle:checked ~ #hamburger-menu span:nth-child(3) {
   transform: rotate(-45deg) translate(2px, -2px);
 }
+
 .portal {
   a {
     @apply text-2xl lg:text-4xl font-semibold text-gray-800 hover:bg-blue-50 hover:text-blue-600 rounded hover:cursor-pointer;
   }
+
   li {
     a {
       @apply text-xl lg:text-xl font-semibold text-gray-600 hover:bg-blue-50 hover:text-blue-600 rounded hover:cursor-pointer;
@@ -58,9 +60,11 @@
 .mw-pt-languages-label {
   @apply text-gray-500;
 }
+
 .mw-indicator {
   @apply flex items-center text-gray-500 font-normal;
 }
+
 #mw-indicator-a_pdf {
   .mw-parser-output {
     @apply flex justify-center text-gray-500 font-normal;
@@ -71,25 +75,28 @@
   .fourt-infobox {
     @apply float-none;
   }
+
   a {
     @apply px-1;
   }
+
   b {
     @apply px-1;
   }
+
   i {
     @apply px-1;
+  }
+
+  ul, ol {
+    list-style: revert;
+    margin: revert;
+    padding: revert;
   }
 }
 
 .mw-parser-output td:has(a > img[alt="Relationship Triangle.png"]) a {
   display: inline-block;
-}
-
-.mw-parser-output ul li:has(a > img) {
-  display: flex;
-  align-items: center;
-  gap: 0.20rem;
 }
 
 @media (min-width: 768px) {

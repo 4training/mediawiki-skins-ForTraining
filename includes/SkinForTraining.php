@@ -53,6 +53,16 @@ class SkinForTraining extends SkinMustache
 
         if (!$this->loggedin) {
             $data['user-logged-in'] = false;
+            // Hide Tools menu (p-tb) for non-logged-in users
+            if (isset($data['data-portlets-sidebar']['array-portlets-rest']) && is_array($data['data-portlets-sidebar']['array-portlets-rest'])) {
+                $filtered = [];
+                foreach ($data['data-portlets-sidebar']['array-portlets-rest'] as $portlet) {
+                    if ($portlet['id'] !== 'p-tb') {
+                        $filtered[] = $portlet;
+                    }
+                }
+                $data['data-portlets-sidebar']['array-portlets-rest'] = $filtered;
+            }
         } else {
             // Show namespaces (page / discussion page) only to admin
             $groupManager = MediaWikiServices::getInstance()->getUserGroupManager();

@@ -38,7 +38,8 @@
             "skins.fortraining.usermenu",
             "skins.fortraining.dropdown-languages-menu",
             "skins.fortraining.set-editor-to-expanded",
-            "skins.fortraining.burgermenu-accordion"
+            "skins.fortraining.burgermenu-accordion",
+            "skins.fortraining.general-ux-improvements"
           ]
         }
       ]
@@ -112,6 +113,10 @@
     "skins.fortraining.burgermenu-accordion": {
       "targets": ["desktop", "mobile"],
       "packageFiles": ["resources/burger-menu-accordion.js"]
+    },
+    "skins.fortraining.general-ux-improvements": {
+      "targets": ["desktop", "mobile"],
+      "packageFiles": ["resources/general-ux-improvements.js"]
     }
   },
   "ResourceFileModulePaths": {

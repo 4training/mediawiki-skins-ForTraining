@@ -108,15 +108,42 @@ class SkinForTraining extends SkinMustache
             }
         } else {
             // Show namespaces (page / discussion page) only to admin
+            // Show namespaces (page / discussion page) only to admin
+            $isAdmin = false;
             $groupManager = MediaWikiServices::getInstance()->getUserGroupManager();
-            if (!in_array('sysop', $groupManager->getUserEffectiveGroups($this->getUser()))) {
-                // $this->getUser->getEffectiveGroups() doesn't work anymore: https://phabricator.wikimedia.org/T275148
+            if (in_array('sysop', $groupManager->getUserEffectiveGroups($this->getUser()))) {
+                $isAdmin = true;
+            } else {
                 unset($data['data-portlets']['data-namespaces']);
             }
 
-            // Add Tools link to the user menu for logged-in users
+            // Build a custom-ordered user menu for logged-in users
             if (isset($data['data-portlets']['data-user-menu'])) {
-                // Find the p-tb portlet in the sidebar to get its items
+                $menuHtml = '';
+
+                // 1. Guidelines
+                $menuHtml .= '<li class="ft-user-menu-header">Guidelines</li>';
+                $menuHtml .= '<li class="ft-user-menu-item"><a href="/4training:Guidelines">Guidelines</a></li>';
+
+                // 2. Views (Read / Edit / View History)
+                if (isset($data['data-portlets']['data-views']) && !empty($data['data-portlets']['data-views']['html-items'])) {
+                    $menuHtml .= '<li class="ft-user-menu-header">Views</li>';
+                    $menuHtml .= $data['data-portlets']['data-views']['html-items'];
+                }
+
+                // 3. Actions (renamed from "More")
+                if (isset($data['data-portlets']['data-actions']) && !empty($data['data-portlets']['data-actions']['html-items'])) {
+                    $menuHtml .= '<li class="ft-user-menu-header">Actions</li>';
+                    $menuHtml .= $data['data-portlets']['data-actions']['html-items'];
+                }
+
+                // 4. Namespaces (only for admin)
+                if ($isAdmin && isset($data['data-portlets']['data-namespaces']) && !empty($data['data-portlets']['data-namespaces']['html-items'])) {
+                    $menuHtml .= '<li class="ft-user-menu-header">Namespaces</li>';
+                    $menuHtml .= $data['data-portlets']['data-namespaces']['html-items'];
+                }
+
+                // 5. Tools
                 $toolsHtml = '';
                 if (isset($data['data-portlets-sidebar']['array-portlets-rest'])) {
                     foreach ($data['data-portlets-sidebar']['array-portlets-rest'] as $portlet) {
@@ -127,9 +154,16 @@ class SkinForTraining extends SkinMustache
                     }
                 }
                 if (!empty($toolsHtml)) {
-                    $toolsHeader = '<li id="pt-tools-header" class="mw-list-item mt-2 font-bold pointer-events-none">Tools</li>';
-                    $data['data-portlets']['data-user-menu']['html-items'] .= $toolsHeader . $toolsHtml;
+                    $menuHtml .= '<li class="ft-user-menu-header">Tools</li>';
+                    $menuHtml .= $toolsHtml;
                 }
+
+                // 6. Account (Language selector, Preferences, Contributions, Logout)
+                $menuHtml .= '<li class="ft-user-menu-header">Account</li>';
+                $menuHtml .= $data['data-portlets']['data-user-menu']['html-items'];
+
+                // Replace the user menu html-items with our custom order
+                $data['data-portlets']['data-user-menu']['html-items'] = $menuHtml;
             }
 
             // Show guidelines only to logged-in users
@@ -366,6 +400,24 @@ class SkinForTraining extends SkinMustache
         }
 
         return $items;
+    }
+
+    /**
+     * Build a consistently styled user menu section with a header and items
+     *
+     * @param string $title Section header title
+     * @param array $items Array of items with 'id', 'href', 'text' keys
+     * @return string HTML for the section
+     */
+    private function buildUserMenuSection($title, array $items) {
+        $html = '<li class="user-menu-section-header">' . htmlspecialchars($title) . '</li>';
+        foreach ($items as $item) {
+            $id = !empty($item['id']) ? ' id="' . htmlspecialchars($item['id']) . '"' : '';
+            $href = htmlspecialchars($item['href']);
+            $text = htmlspecialchars($item['text']);
+            $html .= '<li' . $id . ' class="user-menu-item"><a href="' . $href . '">' . $text . '</a></li>';
+        }
+        return $html;
     }
 
 // for debugging

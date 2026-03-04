@@ -70,6 +70,24 @@ class SkinForTraining extends SkinMustache
                 unset($data['data-portlets']['data-namespaces']);
             }
 
+            // Add Tools link to the user menu for logged-in users
+            if (isset($data['data-portlets']['data-user-menu'])) {
+                // Find the p-tb portlet in the sidebar to get its items
+                $toolsHtml = '';
+                if (isset($data['data-portlets-sidebar']['array-portlets-rest'])) {
+                    foreach ($data['data-portlets-sidebar']['array-portlets-rest'] as $portlet) {
+                        if ($portlet['id'] === 'p-tb') {
+                            $toolsHtml = $portlet['html-items'];
+                            break;
+                        }
+                    }
+                }
+                if (!empty($toolsHtml)) {
+                    $toolsHeader = '<li id="pt-tools-header" class="mw-list-item mt-2 font-bold pointer-events-none">Tools</li>';
+                    $data['data-portlets']['data-user-menu']['html-items'] .= $toolsHeader . $toolsHtml;
+                }
+            }
+
             // Show guidelines only to logged-in users
             $data['data-guidelines'] = true;
         }

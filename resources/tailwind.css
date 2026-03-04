@@ -89,9 +89,13 @@
   }
 
   ul, ol {
-    list-style: revert;
-    margin: revert;
-    padding: revert;
+    list-style: disc;
+    margin: 1em 0;
+    padding-inline-start: 2.5em;
+  }
+
+  ol {
+    list-style: decimal;
   }
 }
 

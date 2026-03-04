@@ -50,6 +50,50 @@ class SkinForTraining extends SkinMustache
         // Parse the sidebar menus into accordion
         $data = $this->processSidebarPortlets($data);
 
+        // Check if we're on a "More" sub-page by looking at the sidebar portlet content
+        $isOnMorePage = false;
+        if (isset($data['data-portlets-sidebar']['array-portlets-rest'])) {
+            foreach ($data['data-portlets-sidebar']['array-portlets-rest'] as &$portlet) {
+                if ($portlet['id'] === 'p-headnav-more' && $portlet['has-children']) {
+                    // "More" has children expanded = we're on a More page
+                    $isOnMorePage = true;
+                }
+            }
+            unset($portlet);
+        }
+
+        if ($isOnMorePage) {
+            // Add Essentials as a direct link (without children) before "More"
+            $essentialsLink = [
+                'id' => 'p-headnav-essentials-link',
+                'class' => 'mw-portlet mw-portlet-headnav-essentials-link',
+                'html-tooltip' => '',
+                'html-items' => '',
+                'html-after-portal' => '',
+                'html-before-portal' => '',
+                'label' => $data['msg-headnav-essentials'],
+                'is-empty' => true,
+                'href' => '/Special:MyLanguage/Essentials',
+                'array-items' => [],
+                'item-count' => 0,
+                'is-direct-link' => true,
+                'has-children' => false
+            ];
+
+            // Insert before the "More" portlet
+            $newPortlets = [];
+            foreach ($data['data-portlets-sidebar']['array-portlets-rest'] as $portlet) {
+                if ($portlet['id'] === 'p-headnav-more') {
+                    $newPortlets[] = $essentialsLink;
+                }
+                // Skip the original Essentials accordion (it would be redundant)
+                if ($portlet['id'] !== 'p-headnav-essentials') {
+                    $newPortlets[] = $portlet;
+                }
+            }
+            $data['data-portlets-sidebar']['array-portlets-rest'] = $newPortlets;
+        }
+
         if (!$this->loggedin) {
             $data['user-logged-in'] = false;
             // Hide Tools menu (p-tb) for non-logged-in users

@@ -97,10 +97,19 @@
   ol {
     list-style: decimal;
   }
+
+  table tr td {
+    vertical-align: middle;
+  }
 }
 
-.mw-parser-output td:has(a > img[alt="Relationship Triangle.png"]) a {
+.mw-parser-output table td a.image {
   display: inline-block;
+}
+
+.mw-parser-output td:has(a > img[alt="Relationship Arrow.png"]) a {
+  width: 110px;
+  height: auto;
 }
 
 @media (min-width: 768px) {

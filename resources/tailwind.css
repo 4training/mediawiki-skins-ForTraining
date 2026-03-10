@@ -71,6 +71,15 @@
   }
 }
 
+/* Reseting margins and padding for content*/
+.mw-parser-output {
+
+  blockquote, dl, dd, h1, h2, h3, h4, h5, h6, hr, figure, p, pre {
+    margin: revert !important;
+    padding: revert !important;
+  }
+}
+
 .mw-parser-output {
   .fourt-infobox {
     @apply float-none;
@@ -78,6 +87,11 @@
 
   a {
     @apply px-1;
+    @apply text-blue-600 hover:underline;
+  }
+
+  li a {
+    @apply text-blue-600 hover:underline;
   }
 
   b {

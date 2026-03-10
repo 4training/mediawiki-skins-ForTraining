@@ -1193,13 +1193,33 @@ html {
   }
 }
 
+/* Reseting margins and padding for content*/
+
 .mw-parser-output {
+  blockquote, dl, dd, h1, h2, h3, h4, h5, h6, hr, figure, p, pre {
+    margin: revert !important;
+    padding: revert !important;
+  }
   .fourt-infobox {
     float: none;
   }
   a {
     padding-left: 0.25rem;
     padding-right: 0.25rem;
+  }
+  a {
+    --tw-text-opacity: 1;
+    color: rgb(37 99 235 / var(--tw-text-opacity));
+  }
+  a:hover {
+    text-decoration-line: underline;
+  }
+  li a {
+    --tw-text-opacity: 1;
+    color: rgb(37 99 235 / var(--tw-text-opacity));
+  }
+  li a:hover {
+    text-decoration-line: underline;
   }
   b {
     padding-left: 0.25rem;

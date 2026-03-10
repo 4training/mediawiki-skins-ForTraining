@@ -20,15 +20,15 @@ document.querySelectorAll('.mw-parser-output ul li').forEach(li => {
 // Improve the diagram rendered at The Role of a Helper in Prayer
 // This is a fallback for browsers that don't support CSS ':has()''
 // Image: Relationship Triangle.png
-const img = document.querySelector('img[alt="Relationship Triangle.png"]');
-if (img) {
-  img.style.display = 'inline-block';
+const relationshipTriangleImg = document.querySelector('img[alt="Relationship Triangle.png"]');
+if (relationshipTriangleImg) {
+  relationshipTriangleImg.style.display = 'inline-block';
 }
 
 // Improve the diagram rendered at The Role of a Helper in Prayer
 // This is a fallback for browsers that don't support CSS ':has()''
 // Image: Relationship Arrow.png
-const img = document.querySelector('img[alt="Relationship Arrow.png"]');
-if (img) {
-  img.style.display = 'inline-block';
+const relationShipArrowIm = document.querySelector('img[alt="Relationship Arrow.png"]');
+if (relationShipArrowIm) {
+  relationShipArrowIm.style.display = 'inline-block';
 }

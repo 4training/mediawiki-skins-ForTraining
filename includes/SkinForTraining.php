@@ -169,6 +169,11 @@ class SkinForTraining extends SkinMustache
             // Show guidelines only to logged-in users
             $data['data-guidelines'] = true;
         }
+
+        // Final footer: About and Donate (translatable link text)
+        $data['msg-footer-about'] = $this->msg( 'footer-about' )->text();
+        $data['msg-footer-donate'] = $this->msg( 'footer-donate' )->text();
+
         return $data;
     }
 
@@ -195,24 +200,9 @@ class SkinForTraining extends SkinMustache
 
         // Only show "This page was last edited on ..." for logged-in users
         if (!$this->loggedin) {
-            unset($data['info']);
-
-            // Set the login link for logged-out users
-            $data["info"]["login"] = '
-            <div>
-              <div id="footer-login" class="mt-1">
-                <div id="footer-loginlink">
-                  <a href="/Special:UserLogin"
-                     class="text-lg lg:text-xl font-semibold hover:bg-blue-50 hover:text-blue-600 hover:cursor-pointer">
-                    Login
-                  </a>
-                </div>
-              </div>
-            </div>';
+            unset($data['info']['lastmod']);
+            $data["info"]["login"] = '<a href="/Special:UserLogin">Login</a>';
         }
-
-        // Another way to add the login link... maybe use this instead of writing it in skin.mustache?
-        // $data["info"]["login"] = '<a href="/Special:UserLogin">Login</a></li>';
 
         return $data;
     }

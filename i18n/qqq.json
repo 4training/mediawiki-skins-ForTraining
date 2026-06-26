@@ -8,5 +8,6 @@
 	"fortraining-desc": "{{desc|what=skin|name=ForTraining|url=https://github.com/4training/mediawiki-skins-ForTraining}}",
 	"fortraining-no-categories": "Message to show when no categories available",
 	"footer-about": "Link text for the About page in the final footer",
+	"footer-privacy": "Link text for the Privacy page in the final footer",
 	"footer-donate": "Link text for the Donate page in the final footer"
 }

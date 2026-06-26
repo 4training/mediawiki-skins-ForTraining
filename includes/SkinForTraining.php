@@ -8,7 +8,6 @@ use MediaWiki\MediaWikiServices;
 
 class SkinForTraining extends SkinMustache
 {
-
     public function getTemplateData()
     {
         $data = parent::getTemplateData();
@@ -77,7 +76,7 @@ class SkinForTraining extends SkinMustache
                 'array-items' => [],
                 'item-count' => 0,
                 'is-direct-link' => true,
-                'has-children' => false
+                'has-children' => false,
             ];
 
             // Insert before the "More" portlet
@@ -94,7 +93,7 @@ class SkinForTraining extends SkinMustache
             $data['data-portlets-sidebar']['array-portlets-rest'] = $newPortlets;
         }
 
-        if (!$this->loggedin) {
+        if (! $this->loggedin) {
             $data['user-logged-in'] = false;
             // Hide Tools menu (p-tb) for non-logged-in users
             if (isset($data['data-portlets-sidebar']['array-portlets-rest']) && is_array($data['data-portlets-sidebar']['array-portlets-rest'])) {
@@ -126,19 +125,19 @@ class SkinForTraining extends SkinMustache
                 $menuHtml .= '<li class="ft-user-menu-item"><a href="/4training:Guidelines">Guidelines</a></li>';
 
                 // 2. Views (Read / Edit / View History)
-                if (isset($data['data-portlets']['data-views']) && !empty($data['data-portlets']['data-views']['html-items'])) {
+                if (isset($data['data-portlets']['data-views']) && ! empty($data['data-portlets']['data-views']['html-items'])) {
                     $menuHtml .= '<li class="ft-user-menu-header">Views</li>';
                     $menuHtml .= $data['data-portlets']['data-views']['html-items'];
                 }
 
                 // 3. Actions (renamed from "More")
-                if (isset($data['data-portlets']['data-actions']) && !empty($data['data-portlets']['data-actions']['html-items'])) {
+                if (isset($data['data-portlets']['data-actions']) && ! empty($data['data-portlets']['data-actions']['html-items'])) {
                     $menuHtml .= '<li class="ft-user-menu-header">Actions</li>';
                     $menuHtml .= $data['data-portlets']['data-actions']['html-items'];
                 }
 
                 // 4. Namespaces (only for admin)
-                if ($isAdmin && isset($data['data-portlets']['data-namespaces']) && !empty($data['data-portlets']['data-namespaces']['html-items'])) {
+                if ($isAdmin && isset($data['data-portlets']['data-namespaces']) && ! empty($data['data-portlets']['data-namespaces']['html-items'])) {
                     $menuHtml .= '<li class="ft-user-menu-header">Namespaces</li>';
                     $menuHtml .= $data['data-portlets']['data-namespaces']['html-items'];
                 }
@@ -153,7 +152,7 @@ class SkinForTraining extends SkinMustache
                         }
                     }
                 }
-                if (!empty($toolsHtml)) {
+                if (! empty($toolsHtml)) {
                     $menuHtml .= '<li class="ft-user-menu-header">Tools</li>';
                     $menuHtml .= $toolsHtml;
                 }
@@ -170,9 +169,10 @@ class SkinForTraining extends SkinMustache
             $data['data-guidelines'] = true;
         }
 
-        // Final footer: About and Donate (translatable link text)
-        $data['msg-footer-about'] = $this->msg( 'footer-about' )->text();
-        $data['msg-footer-donate'] = $this->msg( 'footer-donate' )->text();
+        // Final footer: About, Privacy and Donate (translatable link text)
+        $data['msg-footer-about'] = $this->msg('footer-about')->text();
+        $data['msg-footer-privacy'] = $this->msg('footer-privacy')->text();
+        $data['msg-footer-donate'] = $this->msg('footer-donate')->text();
 
         return $data;
     }
@@ -182,16 +182,16 @@ class SkinForTraining extends SkinMustache
         parent::runOnSkinTemplateNavigationHooks($skin, $content_navigation);
 
         // Don't show login link for all visitors in the top right
-        unset($content_navigation["user-menu"]["login"]);
+        unset($content_navigation['user-menu']['login']);
 
         // Remove some entries from the user menu for logged-in users
-        unset($content_navigation["user-menu"]["mytalk"]);
-        unset($content_navigation["user-menu"]["userpage"]);
-        unset($content_navigation["user-menu"]["watchlist"]);
+        unset($content_navigation['user-menu']['mytalk']);
+        unset($content_navigation['user-menu']['userpage']);
+        unset($content_navigation['user-menu']['watchlist']);
 
         // Add the universal language selector (ULS) to the beginning of the user menu
-        $content_navigation["user-menu"] = array("uls" => $content_navigation["user-interface-preferences"]["uls"])
-            + $content_navigation["user-menu"];
+        $content_navigation['user-menu'] = ['uls' => $content_navigation['user-interface-preferences']['uls']]
+            + $content_navigation['user-menu'];
     }
 
     protected function getFooterLinks(): array
@@ -199,9 +199,9 @@ class SkinForTraining extends SkinMustache
         $data = parent::getFooterLinks();
 
         // Only show "This page was last edited on ..." for logged-in users
-        if (!$this->loggedin) {
+        if (! $this->loggedin) {
             unset($data['info']['lastmod']);
-            $data["info"]["login"] = '<a href="/Special:UserLogin">Login</a>';
+            $data['info']['login'] = '<a href="/Special:UserLogin">Login</a>';
         }
 
         return $data;
@@ -210,12 +210,12 @@ class SkinForTraining extends SkinMustache
     /**
      * Load SVG icon from the assets/icons folder
      *
-     * @param string $iconName Name of the icon file (without .svg extension)
+     * @param  string  $iconName  Name of the icon file (without .svg extension)
      * @return string The SVG content as an HTML-safe string
      */
     private function getIconSvg($iconName)
     {
-        $iconPath = __DIR__ . '/../resources/assets/icons/' . $iconName . '.svg';
+        $iconPath = __DIR__.'/../resources/assets/icons/'.$iconName.'.svg';
 
         if (file_exists($iconPath)) {
             return file_get_contents($iconPath);
@@ -228,26 +228,26 @@ class SkinForTraining extends SkinMustache
      * Extract translation languages from the Translate extension's HTML output
      * and structure them as data for the template
      *
-     * @param array $data Template data array
+     * @param  array  $data  Template data array
      * @return array Modified template data with translation-languages key
      */
     private function extractTranslationLanguages(array $data): array
     {
-        if (!isset($data['html-body-content'])) {
+        if (! isset($data['html-body-content'])) {
             return $data;
         }
 
         $htmlContent = $data['html-body-content'];
 
         // Parse HTML content
-        $dom = new DOMDocument();
-        @$dom->loadHTML('<?xml encoding="UTF-8">' . $htmlContent, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+        $dom = new DOMDocument;
+        @$dom->loadHTML('<?xml encoding="UTF-8">'.$htmlContent, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
         $xpath = new DOMXPath($dom);
 
         // Find the translate extension language selector
         $langDiv = $xpath->query('//div[contains(@class, "mw-pt-languages")]')->item(0);
 
-        if (!$langDiv) {
+        if (! $langDiv) {
             return $data;
         }
 
@@ -259,10 +259,10 @@ class SkinForTraining extends SkinMustache
 
         // Add structured data
         $data['translation-languages'] = [
-            'has-languages' => !empty($languages),
+            'has-languages' => ! empty($languages),
             'current' => $currentLang,
             'count' => count($languages) + 1, // +1 for current language
-            'languages' => $languages
+            'languages' => $languages,
         ];
 
         // Remove the language selector from body content
@@ -275,8 +275,8 @@ class SkinForTraining extends SkinMustache
     /**
      * Parse language links from the translate extension's language selector
      *
-     * @param DOMXPath $xpath XPath query object
-     * @param DOMElement $langDiv The language selector container element
+     * @param  DOMXPath  $xpath  XPath query object
+     * @param  DOMElement  $langDiv  The language selector container element
      * @return array Array of language link data
      */
     private function parseLanguageLinks(DOMXPath $xpath, DOMElement $langDiv): array
@@ -291,7 +291,7 @@ class SkinForTraining extends SkinMustache
                 'lang' => $link->getAttribute('lang'),
                 'dir' => $link->getAttribute('dir'),
                 'text' => trim($link->textContent),
-                'progress-class' => $link->getAttribute('class')
+                'progress-class' => $link->getAttribute('class'),
             ];
         }
 
@@ -301,8 +301,8 @@ class SkinForTraining extends SkinMustache
     /**
      * Get the current language name from the translate extension's language selector
      *
-     * @param DOMXPath $xpath XPath query object
-     * @param DOMElement $langDiv The language selector container element
+     * @param  DOMXPath  $xpath  XPath query object
+     * @param  DOMElement  $langDiv  The language selector container element
      * @return string Current language name
      */
     private function getCurrentLanguage(DOMXPath $xpath, DOMElement $langDiv): string
@@ -319,18 +319,19 @@ class SkinForTraining extends SkinMustache
      * Process sidebar portlets to extract items as structured data
      * Handles both data-portlets-first and array-portlets-rest
      *
-     * @param array $data Template data array
+     * @param  array  $data  Template data array
      * @return array Modified template data with structured sidebar items
      */
-    private function processSidebarPortlets(array $data): array {
-        if (!isset($data['data-portlets-sidebar'])) {
+    private function processSidebarPortlets(array $data): array
+    {
+        if (! isset($data['data-portlets-sidebar'])) {
             return $data;
         }
 
         $sidebar = &$data['data-portlets-sidebar'];
 
         // Process data-portlets-first (single portlet object)
-        if (isset($sidebar['data-portlets-first']) && !empty($sidebar['data-portlets-first'])) {
+        if (isset($sidebar['data-portlets-first']) && ! empty($sidebar['data-portlets-first'])) {
             $this->processPortlet($sidebar['data-portlets-first']);
         }
 
@@ -347,30 +348,32 @@ class SkinForTraining extends SkinMustache
     /**
      * Process a single portlet to determine its type and extract items
      *
-     * @param array $portlet Portlet data (passed by reference)
+     * @param  array  $portlet  Portlet data (passed by reference)
      */
-    private function processPortlet(array &$portlet): void {
+    private function processPortlet(array &$portlet): void
+    {
         $portlet['array-items'] = $this->parsePortletItems($portlet['html-items'] ?? '');
         $portlet['item-count'] = count($portlet['array-items']);
 
         // Determine if this is a direct link or a container with sub-items
-        $portlet['is-direct-link'] = ($portlet['item-count'] === 0 && !empty($portlet['href']));
+        $portlet['is-direct-link'] = ($portlet['item-count'] === 0 && ! empty($portlet['href']));
         $portlet['has-children'] = ($portlet['item-count'] > 0);
     }
 
     /**
      * Parse HTML list items into structured array
      *
-     * @param string $htmlItems HTML string of list items
+     * @param  string  $htmlItems  HTML string of list items
      * @return array Array of item data
      */
-    private function parsePortletItems(string $htmlItems): array {
+    private function parsePortletItems(string $htmlItems): array
+    {
         if (empty($htmlItems)) {
             return [];
         }
 
-        $dom = new DOMDocument();
-        @$dom->loadHTML('<?xml encoding="UTF-8"><ul>' . $htmlItems . '</ul>', LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+        $dom = new DOMDocument;
+        @$dom->loadHTML('<?xml encoding="UTF-8"><ul>'.$htmlItems.'</ul>', LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
         $xpath = new DOMXPath($dom);
 
         $items = [];
@@ -384,7 +387,7 @@ class SkinForTraining extends SkinMustache
                     'id' => $li->getAttribute('id'),
                     'class' => $li->getAttribute('class'),
                     'href' => $link->getAttribute('href'),
-                    'text' => trim($link->textContent)
+                    'text' => trim($link->textContent),
                 ];
             }
         }
@@ -395,28 +398,28 @@ class SkinForTraining extends SkinMustache
     /**
      * Build a consistently styled user menu section with a header and items
      *
-     * @param string $title Section header title
-     * @param array $items Array of items with 'id', 'href', 'text' keys
+     * @param  string  $title  Section header title
+     * @param  array  $items  Array of items with 'id', 'href', 'text' keys
      * @return string HTML for the section
      */
-    private function buildUserMenuSection($title, array $items) {
-        $html = '<li class="user-menu-section-header">' . htmlspecialchars($title) . '</li>';
+    private function buildUserMenuSection($title, array $items)
+    {
+        $html = '<li class="user-menu-section-header">'.htmlspecialchars($title).'</li>';
         foreach ($items as $item) {
-            $id = !empty($item['id']) ? ' id="' . htmlspecialchars($item['id']) . '"' : '';
+            $id = ! empty($item['id']) ? ' id="'.htmlspecialchars($item['id']).'"' : '';
             $href = htmlspecialchars($item['href']);
             $text = htmlspecialchars($item['text']);
-            $html .= '<li' . $id . ' class="user-menu-item"><a href="' . $href . '">' . $text . '</a></li>';
+            $html .= '<li'.$id.' class="user-menu-item"><a href="'.$href.'">'.$text.'</a></li>';
         }
+
         return $html;
     }
 
-// for debugging
-    function console_log($data)
+    // for debugging
+    public function console_log($data)
     {
         echo '<script>';
-        echo 'console.log(' . json_encode($data) . ')';
+        echo 'console.log('.json_encode($data).')';
         echo '</script>';
     }
 }
-
-?>

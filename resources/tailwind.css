@@ -1,0 +1,135 @@
+@tailwind base;
+
+@layer base {
+  html {
+    font-size: clamp(16px, 1.2vw + 12px, 18px);
+  }
+}
+
+@tailwind components;
+@tailwind utilities;
+
+#menu-toggle:checked ~ #mobile-menu {
+  display: block;
+  transform: translateX(0);
+}
+
+#menu-toggle:checked ~ #hamburger-menu span:nth-child(1) {
+  transform: rotate(45deg) translate(2px, 2px);
+}
+
+#menu-toggle:checked ~ #hamburger-menu span:nth-child(2) {
+  opacity: 0;
+}
+
+#menu-toggle:checked ~ #hamburger-menu span:nth-child(3) {
+  transform: rotate(-45deg) translate(2px, -2px);
+}
+
+.portal {
+  a {
+    @apply text-2xl lg:text-4xl font-semibold text-gray-800 hover:bg-blue-50 hover:text-blue-600 rounded hover:cursor-pointer;
+  }
+
+  li {
+    a {
+      @apply text-xl lg:text-xl font-semibold text-gray-600 hover:bg-blue-50 hover:text-blue-600 rounded hover:cursor-pointer;
+    }
+  }
+}
+
+.user-config-icon {
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+}
+
+.mw-list-item {
+  @apply font-semibold text-gray-400 hover:bg-blue-50 hover:text-blue-600 rounded hover:cursor-pointer;
+}
+
+.mw-headline {
+  @apply text-2xl lg:text-lg font-semibold text-gray-500;
+}
+
+.mw-pt-languages-label {
+  @apply text-gray-500;
+}
+
+.mw-indicator {
+  @apply flex items-center text-gray-500 font-normal;
+}
+
+#mw-indicator-a_pdf {
+  .mw-parser-output {
+    @apply flex justify-center text-gray-500 font-normal;
+  }
+}
+
+/* Reseting margins and padding for content*/
+.mw-parser-output {
+
+  blockquote, dl, dd, h1, h2, h3, h4, h5, h6, hr, figure, p, pre {
+    margin: revert !important;
+    padding: revert !important;
+  }
+}
+
+.mw-parser-output {
+  .fourt-infobox {
+    @apply float-none;
+  }
+
+  a {
+    @apply px-1;
+    @apply text-blue-600 hover:underline;
+  }
+
+  li a {
+    @apply text-blue-600 hover:underline;
+  }
+
+  b {
+    @apply px-1;
+  }
+
+  i {
+    @apply px-1;
+  }
+
+  ul, ol {
+    list-style: disc;
+    margin: 1em 0;
+    padding-inline-start: 2.5em;
+  }
+
+  ol {
+    list-style: decimal;
+  }
+
+  table tr td {
+    vertical-align: middle;
+  }
+}
+
+.mw-parser-output table td a.image {
+  display: inline-block;
+}
+
+.mw-parser-output td:has(a > img[alt="Relationship Arrow.png"]) a {
+  width: 110px;
+  height: auto;
+}
+
+@media (min-width: 768px) {
+  .mw-parser-output {
+    .fourt-infobox {
+      @apply float-right;
+    }
+  }
+}

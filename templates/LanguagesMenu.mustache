@@ -1,0 +1,24 @@
+{{#translation-languages.has-languages}}
+  <div class="translation-languages-dropdown">
+    <button class="language-dropdown-btn" aria-expanded="false" aria-label="Select language">
+      <span class="language-menu-icon h-6 w-6">{{{icon-language-menu}}}</span>
+      <span class="current-lang">{{translation-languages.current}}</span>
+      <span class="lang-count">({{translation-languages.count}} languages)</span>
+      <span class="arrow">▼</span>
+    </button>
+
+    <ul class="language-dropdown-list" hidden>
+      {{#translation-languages.languages}}
+        <li>
+          <a href="{{href}}"
+             lang="{{lang}}"
+             dir="{{dir}}"
+             class="{{progress-class}}"
+             title="{{title}}">
+            {{text}}
+          </a>
+        </li>
+      {{/translation-languages.languages}}
+    </ul>
+  </div>
+{{/translation-languages.has-languages}}

@@ -1,0 +1,184 @@
+<header class="py-4 pl-4 pr-4 shadow-lg bg-white sticky top-0 z-50">
+  <div class="mx-auto flex justify-between items-center">
+    <!--  Burger Menu Button   -->
+    <div class="flex items-center gap-4 lg:gap-8">
+      <div id="mobile-menu-trigger">
+        <button class="navbar-burger flex items-center text-gray-600 p-2 lg:p-3">
+          <svg
+            class="block h-6 w-6 sm:h-7 sm:w-7 lg:h-8 lg:w-8 fill-current"
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"></path>
+          </svg>
+        </button>
+
+      </div>
+      <div>
+        <a href="/Special:MyLanguage/Start"
+           title="Visit the main page"
+           class="flex items-center hover:text-yellow-300 transition duration-300">
+          {{#data-logos}}
+            {{#1x}}<img id="ft-logo" src="{{.}}" alt="logo"
+                        class="h-8 w-auto mr-3 lg:h-12"/>{{/1x}}
+          {{/data-logos}}
+        </a>
+      </div>
+    </div>
+    <!--  Header Search   -->
+    <nav id="ft-header-menu" class="flex items-center space-x-3 lg:space-x-6">
+      {{#data-search-box}}
+        <div id="p-search" role="search" class="relative">
+          <form action="{{form-action}}" role="search" id="search" class="flex items-center">
+            <input type="hidden" name="title" value="{{page-title}}">
+            <label for="searchInput" class="sr-only">{{msg-search}}</label>
+
+            <div class="relative flex items-center">
+              <input
+                type="search"
+                id="searchInput"
+                class="hidden border border-gray-300 rounded-md py-3 pl-12 pr-4 text-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="Suche 'Schritte der Vergebung'"
+                name="search"
+              >
+            </div>
+
+            <button
+              type="submit"
+              class="ml-3 bg-red-800 text-white rounded-md p-2 lg:p-2 hover:bg-red-400 transition duration-300"
+              aria-label="{{msg-search}}"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                class="w-6 h-6 lg:w-6 lg:h-6"
+              >
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                />
+              </svg>
+            </button>
+
+          </form>
+        </div>
+      {{/data-search-box}}
+      {{#user-logged-in}}
+      <!-- User Menu Section -->
+        <div class="relative">
+          <!-- Mobile: Cog Icon Button (visible only on mobile) -->
+          <button
+            id="mobile-user-menu-trigger"
+            class="lg:hidden bg-red-800 rounded-md p-2 text-white hover:bg-red-400 transition duration-300 flex items-center justify-center"
+            aria-label="Open user menu"
+          >
+            <div class="user-config-icon w-6 h-6">{{{icon-user-menu-gear}}}</div>
+          </button>
+
+          <!-- Desktop: User Options Button (visible only on desktop) -->
+          <button
+            id="desktop-user-menu-trigger"
+            class="hidden lg:flex items-center bg-red-800 text-white rounded-md px-4 py-2 hover:bg-red-400 transition duration-300"
+            aria-label="Toggle user menu"
+          >
+            <span class="mr-2">User Options</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </button>
+
+          <!-- Desktop Dropdown Menu -->
+          <div
+            id="desktop-user-menu"
+            class="hidden absolute top-full right-0 mt-2 w-64 bg-white shadow-lg rounded-md border border-gray-200 z-50"
+          >
+            <div class="p-2">
+              {{>LoggedInUserMenu}}
+            </div>
+          </div>
+        </div>
+        {{/user-logged-in}}
+    </nav>
+  </div>
+
+
+  <!--  Burger Menu Content  -->
+  <div class="navbar-menu relative z-50 hidden">
+    <div class="navbar-backdrop fixed inset-0 bg-gray-800 opacity-25"></div>
+    <nav
+        class="fixed top-0 left-0 bottom-0 flex flex-col w-11/12 max-w-2xl py-6 px-6 bg-white border-r overflow-y-auto"
+
+    >
+      <div class="flex items-center mb-8">
+        <div class="flex-1">
+          <a href="/Special:MyLanguage/Start">
+            <h1 class="mr-auto text-3xl font-bold">4Training</h1>
+          </a>
+        </div>
+        <button class="navbar-close">
+          <svg
+            class="h-6 w-6 sm:h-7 sm:w-7 lg:h-8 lg:w-8 text-gray-400 cursor-pointer hover:text-gray-500"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M6 18L18 6M6 6l12 12"
+            ></path>
+          </svg>
+        </button>
+      </div>
+      <div>
+        {{>BurgerMenuWithAccordion}}
+        <div class="sidebar-direct-link">
+          <a class="sidebar-link text-lg" href="/Special:MyLanguage/Languages">{{msg-headnav-languages}}</a>
+        </div>
+        <div class="sidebar-direct-link">
+          <a class="sidebar-link text-lg" href="/Special:MyLanguage/FAQ">{{msg-headnav-faq}}</a>
+        </div>
+        <div class="sidebar-direct-link">
+          <a class="sidebar-link text-lg" href="https://www.4training.net/Special:MyLanguage/Contact">{{msg-contactpage-title}}</a>
+        </div>
+      </div>
+    </nav>
+  </div>
+
+  <!--  Mobile User Menu Slide-in (for logged-in users) -->
+    <!-- Overlay -->
+    <div
+        id="mobile-user-menu-overlay"
+        class="fixed inset-0 bg-black/50 z-40 hidden lg:hidden"
+    ></div>
+
+    <!-- Slide-in Menu -->
+    <nav
+        id="mobile-user-menu"
+        class="fixed top-0 right-0 bottom-0 w-80 max-w-[85vw] py-6 px-6 bg-white shadow-xl overflow-y-auto transform translate-x-full transition-transform duration-150 z-50 lg:hidden"
+    >
+      <div class="flex items-center justify-between mb-8">
+        <h2 class="text-2xl font-bold">User Menu</h2>
+        <button
+          id="mobile-user-menu-close"
+          class="p-2 hover:bg-gray-100 rounded-md transition"
+          aria-label="Close user menu"
+        >
+          <svg
+            class="h-6 w-6 text-gray-600"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M6 18L18 6M6 6l12 12"
+            ></path>
+          </svg>
+        </button>
+      </div>
+      <div>
+        {{>LoggedInUserMenu}}
+      </div>
+    </nav>
+</header>

@@ -1,0 +1,139 @@
+/**
+ * User Menu Styles
+ * Styling for desktop dropdown and mobile slide-in menus
+ */
+
+/* ===== Transitions & Animations ===== */
+
+#mobile-user-menu {
+  transition: transform 150ms ease-in-out;
+}
+
+#desktop-user-menu {
+  animation: fadeIn 150ms ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+#mobile-user-menu-overlay {
+  animation: overlayFadeIn 150ms ease-in-out;
+}
+
+@keyframes overlayFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+body.user-menu-open {
+  overflow: hidden;
+}
+
+/* ===== User Menu Layout ===== */
+
+.ft-user-menu {
+  font-size: 0.9375rem;
+  line-height: 1.5;
+}
+
+.ft-user-menu-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Section headers */
+.ft-user-menu-header {
+  display: block;
+  padding: 0.5rem 0.75rem 0.25rem;
+  margin-top: 0.5rem;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #9ca3af;
+  border-top: 1px solid #e5e7eb;
+  cursor: default;
+  pointer-events: none;
+}
+
+/* Remove top border from first header */
+.ft-user-menu-list > .ft-user-menu-header:first-child {
+  margin-top: 0;
+  border-top: none;
+}
+
+/* Menu items (li elements from MediaWiki portlets) */
+.ft-user-menu-list li.mw-list-item,
+.ft-user-menu-list li.ft-user-menu-item {
+  margin: 0;
+  padding: 0;
+  font-weight: 400;
+  color: inherit;
+  border-radius: 0;
+}
+
+.ft-user-menu-list li.mw-list-item a,
+.ft-user-menu-list li.ft-user-menu-item a {
+  display: block;
+  padding: 0.4rem 0.75rem 0.4rem 1.25rem;
+  color: #374151;
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-decoration: none;
+  border-radius: 0.25rem;
+  transition: background-color 120ms ease, color 120ms ease;
+}
+
+.ft-user-menu-list li.mw-list-item a:hover,
+.ft-user-menu-list li.ft-user-menu-item a:hover {
+  background-color: #eff6ff;
+  color: #2563eb;
+}
+
+/* Active/selected items */
+.ft-user-menu-list li.mw-list-item.selected a,
+.ft-user-menu-list li.mw-list-item.active a {
+  color: #2563eb;
+  font-weight: 600;
+}
+
+/* ===== Desktop Dropdown ===== */
+
+#desktop-user-menu {
+  min-width: 220px;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+/* ===== Mobile Menu ===== */
+
+#mobile-user-menu {
+  max-width: 85vw;
+}
+
+/* ===== Focus Styles ===== */
+
+#mobile-user-menu-trigger:focus,
+#desktop-user-menu-trigger:focus,
+#mobile-user-menu-close:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+/* ===== Responsive ===== */
+
+@media (max-width: 1023px) {
+  #desktop-user-menu {
+    display: none !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  #mobile-user-menu,
+  #mobile-user-menu-overlay {
+    display: none !important;
+  }
+}

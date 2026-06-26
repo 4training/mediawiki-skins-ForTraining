@@ -1,0 +1,118 @@
+/* Accordion Container */
+.sidebar-accordion {
+  width: 100%;
+}
+
+.accordion-section {
+  border-bottom: 1px solid #e5e7eb;
+}
+
+/* Accordion Header/Button */
+.accordion-header {
+  width: 100%;
+  padding: 16px;
+  background: transparent;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: 600;
+  color: #1f2937;
+  transition: background-color 0.2s ease;
+}
+
+.accordion-header:hover {
+  background-color: #f9fafb;
+}
+
+.accordion-header.active {
+  background-color: #f3f4f6;
+}
+
+/* Accordion Title Area */
+.accordion-title {
+  flex: 1;
+}
+
+.accordion-count {
+  font-size: 14px;
+  color: #6b7280;
+  margin: 0 8px;
+}
+
+/* Accordion Icon */
+.accordion-icon {
+  transition: transform 0.3s ease;
+  color: #6b7280;
+}
+
+.accordion-header.active .accordion-icon {
+  transform: rotate(180deg);
+}
+
+/* Accordion Content */
+.accordion-content {
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.accordion-content[hidden] {
+  display: none;
+}
+
+.accordion-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.accordion-list li {
+  border-top: 1px solid #f3f4f6;
+}
+
+.accordion-list a {
+  display: block;
+  padding: 12px 16px 12px 32px; /* Extra left padding for indentation */
+  color: #4b5563;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+}
+
+.accordion-list a:hover {
+  background-color: #f9fafb;
+  color: #1f2937;
+}
+
+/* Mobile specific adjustments */
+@media (max-width: 768px) {
+  .accordion-header {
+    padding: 14px 12px;
+    font-size: 15px;
+  }
+
+  .accordion-list a {
+    padding: 10px 12px 10px 24px;
+  }
+}
+
+/* Direct link styling */
+.sidebar-direct-link {
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.sidebar-link {
+  display: block;
+  padding: 16px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #1f2937;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+}
+
+.sidebar-link:hover {
+  background-color: #f9fafb;
+  color: #dc2626; /* red-600 to match your theme */
+}

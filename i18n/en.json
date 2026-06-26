@@ -6,5 +6,7 @@
 	},
 	"skinname-fortraining": "ForTraining",
 	"fortraining-desc": "SkinMustache-based legacy skin for 4training.net",
-	"fortraining-no-categories": "No categories"
+	"fortraining-no-categories": "No categories",
+	"footer-about": "About",
+	"footer-donate": "Donate"
 }

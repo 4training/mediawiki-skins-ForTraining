@@ -1,0 +1,14 @@
+<div id="mw-navigation">
+  <h2>{{msg-navigation-heading}}</h2>
+  <div id="mw-head">
+    {{#data-portlets}}
+      {{#data-user-menu}}
+        <nav id="{{id}}" class="ft-user-menu" role="navigation" aria-label="User menu">
+          <ul class="ft-user-menu-list">
+            {{{html-items}}}
+          </ul>
+        </nav>
+      {{/data-user-menu}}
+    {{/data-portlets}}
+  </div>
+</div>

@@ -5,10 +5,21 @@ use MediaWiki\MediaWikiServices;
 /*
  * Our skin class: Customizing some behaviors by overriding methods
  */
-class SkinForTraining extends SkinMustache {
 
-    public function getTemplateData() {
+class SkinForTraining extends SkinMustache
+{
+
+    public function getTemplateData()
+    {
         $data = parent::getTemplateData();
+
+        // Extract and structure translation language data
+        $data = $this->extractTranslationLanguages($data);
+
+        $data['user-logged-in'] = true;
+
+        $data['icon-user-menu-gear'] = $this->getIconSvg('user-menu-gear');
+        $data['icon-language-menu'] = $this->getIconSvg('language-menu');
 
         // Provide a number of system messages we need
         $data['msg-headnav-essentials'] = $this->msg('headnav-essentials')->parse();
@@ -22,7 +33,6 @@ class SkinForTraining extends SkinMustache {
         // Add links for the sidebar top-level elements: Links are hard-coded
         // We didn't find a better solution to implement this as the function SkinTemplate::getPortletData()
         // is private and can't be overwritten
-        $data['data-portlets-sidebar']['data-portlets-first']['href'] = '/Special:MyLanguage/Start';
         foreach ($data['data-portlets-sidebar']['array-portlets-rest'] as &$sidebar_block) {
             if ($sidebar_block['id'] == 'p-headnav-essentials') {
                 $sidebar_block['href'] = '/Special:MyLanguage/Essentials';
@@ -31,32 +41,144 @@ class SkinForTraining extends SkinMustache {
             }
         }
 
-        if (!$this->loggedin) {
-            // Show toolbox in the sidebar only for logged-in users
-            $data['data-portlets-sidebar']['array-portlets-rest'] = array_filter(
-                $data['data-portlets-sidebar']['array-portlets-rest'] ?? [],
-                static fn (array $item): bool => $item['id'] !== 'p-tb',
-            );
+        // Remove the title for the p-personal menu object
+        if (isset($data['data-portlets']['data-user-menu'])) {
+            unset($data['data-portlets']['data-personal']['label']);
+            unset($data['data-portlets']['data-user-menu']['label']);
+        }
 
-            // Show right navigation only to logged-in users
-            unset($data['data-portlets']['data-namespaces']);
-            unset($data['data-portlets']['data-views']);
-            unset($data['data-portlets']['data-actions']);
+        // Parse the sidebar menus into accordion
+        $data = $this->processSidebarPortlets($data);
+
+        // Check if we're on a "More" sub-page by looking at the sidebar portlet content
+        $isOnMorePage = false;
+        if (isset($data['data-portlets-sidebar']['array-portlets-rest'])) {
+            foreach ($data['data-portlets-sidebar']['array-portlets-rest'] as &$portlet) {
+                if ($portlet['id'] === 'p-headnav-more' && $portlet['has-children']) {
+                    // "More" has children expanded = we're on a More page
+                    $isOnMorePage = true;
+                }
+            }
+            unset($portlet);
+        }
+
+        if ($isOnMorePage) {
+            // Add Essentials as a direct link (without children) before "More"
+            $essentialsLink = [
+                'id' => 'p-headnav-essentials-link',
+                'class' => 'mw-portlet mw-portlet-headnav-essentials-link',
+                'html-tooltip' => '',
+                'html-items' => '',
+                'html-after-portal' => '',
+                'html-before-portal' => '',
+                'label' => $data['msg-headnav-essentials'],
+                'is-empty' => true,
+                'href' => '/Special:MyLanguage/Essentials',
+                'array-items' => [],
+                'item-count' => 0,
+                'is-direct-link' => true,
+                'has-children' => false
+            ];
+
+            // Insert before the "More" portlet
+            $newPortlets = [];
+            foreach ($data['data-portlets-sidebar']['array-portlets-rest'] as $portlet) {
+                if ($portlet['id'] === 'p-headnav-more') {
+                    $newPortlets[] = $essentialsLink;
+                }
+                // Skip the original Essentials accordion (it would be redundant)
+                if ($portlet['id'] !== 'p-headnav-essentials') {
+                    $newPortlets[] = $portlet;
+                }
+            }
+            $data['data-portlets-sidebar']['array-portlets-rest'] = $newPortlets;
+        }
+
+        if (!$this->loggedin) {
+            $data['user-logged-in'] = false;
+            // Hide Tools menu (p-tb) for non-logged-in users
+            if (isset($data['data-portlets-sidebar']['array-portlets-rest']) && is_array($data['data-portlets-sidebar']['array-portlets-rest'])) {
+                $filtered = [];
+                foreach ($data['data-portlets-sidebar']['array-portlets-rest'] as $portlet) {
+                    if ($portlet['id'] !== 'p-tb') {
+                        $filtered[] = $portlet;
+                    }
+                }
+                $data['data-portlets-sidebar']['array-portlets-rest'] = $filtered;
+            }
         } else {
             // Show namespaces (page / discussion page) only to admin
+            // Show namespaces (page / discussion page) only to admin
+            $isAdmin = false;
             $groupManager = MediaWikiServices::getInstance()->getUserGroupManager();
-            if (!in_array('sysop', $groupManager->getUserEffectiveGroups($this->getUser()))) {
-                // $this->getUser->getEffectiveGroups() doesn't work anymore: https://phabricator.wikimedia.org/T275148
+            if (in_array('sysop', $groupManager->getUserEffectiveGroups($this->getUser()))) {
+                $isAdmin = true;
+            } else {
                 unset($data['data-portlets']['data-namespaces']);
+            }
+
+            // Build a custom-ordered user menu for logged-in users
+            if (isset($data['data-portlets']['data-user-menu'])) {
+                $menuHtml = '';
+
+                // 1. Guidelines
+                $menuHtml .= '<li class="ft-user-menu-header">Guidelines</li>';
+                $menuHtml .= '<li class="ft-user-menu-item"><a href="/4training:Guidelines">Guidelines</a></li>';
+
+                // 2. Views (Read / Edit / View History)
+                if (isset($data['data-portlets']['data-views']) && !empty($data['data-portlets']['data-views']['html-items'])) {
+                    $menuHtml .= '<li class="ft-user-menu-header">Views</li>';
+                    $menuHtml .= $data['data-portlets']['data-views']['html-items'];
+                }
+
+                // 3. Actions (renamed from "More")
+                if (isset($data['data-portlets']['data-actions']) && !empty($data['data-portlets']['data-actions']['html-items'])) {
+                    $menuHtml .= '<li class="ft-user-menu-header">Actions</li>';
+                    $menuHtml .= $data['data-portlets']['data-actions']['html-items'];
+                }
+
+                // 4. Namespaces (only for admin)
+                if ($isAdmin && isset($data['data-portlets']['data-namespaces']) && !empty($data['data-portlets']['data-namespaces']['html-items'])) {
+                    $menuHtml .= '<li class="ft-user-menu-header">Namespaces</li>';
+                    $menuHtml .= $data['data-portlets']['data-namespaces']['html-items'];
+                }
+
+                // 5. Tools
+                $toolsHtml = '';
+                if (isset($data['data-portlets-sidebar']['array-portlets-rest'])) {
+                    foreach ($data['data-portlets-sidebar']['array-portlets-rest'] as $portlet) {
+                        if ($portlet['id'] === 'p-tb') {
+                            $toolsHtml = $portlet['html-items'];
+                            break;
+                        }
+                    }
+                }
+                if (!empty($toolsHtml)) {
+                    $menuHtml .= '<li class="ft-user-menu-header">Tools</li>';
+                    $menuHtml .= $toolsHtml;
+                }
+
+                // 6. Account (Language selector, Preferences, Contributions, Logout)
+                $menuHtml .= '<li class="ft-user-menu-header">Account</li>';
+                $menuHtml .= $data['data-portlets']['data-user-menu']['html-items'];
+
+                // Replace the user menu html-items with our custom order
+                $data['data-portlets']['data-user-menu']['html-items'] = $menuHtml;
             }
 
             // Show guidelines only to logged-in users
             $data['data-guidelines'] = true;
         }
+
+        // Final footer: About and Donate (translatable link text)
+        $data['msg-footer-about'] = $this->msg( 'footer-about' )->text();
+        $data['msg-footer-donate'] = $this->msg( 'footer-donate' )->text();
+
         return $data;
     }
 
-    protected function runOnSkinTemplateNavigationHooks( $skin, &$content_navigation ) {
+    protected function runOnSkinTemplateNavigationHooks($skin, &$content_navigation)
+    {
         parent::runOnSkinTemplateNavigationHooks($skin, $content_navigation);
 
         // Don't show login link for all visitors in the top right
@@ -69,28 +191,232 @@ class SkinForTraining extends SkinMustache {
 
         // Add the universal language selector (ULS) to the beginning of the user menu
         $content_navigation["user-menu"] = array("uls" => $content_navigation["user-interface-preferences"]["uls"])
-             + $content_navigation["user-menu"];
+            + $content_navigation["user-menu"];
     }
 
-    protected function getFooterLinks(): array {
+    protected function getFooterLinks(): array
+    {
         $data = parent::getFooterLinks();
 
         // Only show "This page was last edited on ..." for logged-in users
         if (!$this->loggedin) {
-            unset($data['info']);
+            unset($data['info']['lastmod']);
+            $data["info"]["login"] = '<a href="/Special:UserLogin">Login</a>';
         }
 
-        // Another way to add the login link... maybe use this instead of writing it in skin.mustache?
-        // $data["info"]["login"] = '<a href="/Special:UserLogin">Login</a></li>';
         return $data;
     }
-}
+
+    /**
+     * Load SVG icon from the assets/icons folder
+     *
+     * @param string $iconName Name of the icon file (without .svg extension)
+     * @return string The SVG content as an HTML-safe string
+     */
+    private function getIconSvg($iconName)
+    {
+        $iconPath = __DIR__ . '/../resources/assets/icons/' . $iconName . '.svg';
+
+        if (file_exists($iconPath)) {
+            return file_get_contents($iconPath);
+        }
+
+        return '';
+    }
+
+    /**
+     * Extract translation languages from the Translate extension's HTML output
+     * and structure them as data for the template
+     *
+     * @param array $data Template data array
+     * @return array Modified template data with translation-languages key
+     */
+    private function extractTranslationLanguages(array $data): array
+    {
+        if (!isset($data['html-body-content'])) {
+            return $data;
+        }
+
+        $htmlContent = $data['html-body-content'];
+
+        // Parse HTML content
+        $dom = new DOMDocument();
+        @$dom->loadHTML('<?xml encoding="UTF-8">' . $htmlContent, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+        $xpath = new DOMXPath($dom);
+
+        // Find the translate extension language selector
+        $langDiv = $xpath->query('//div[contains(@class, "mw-pt-languages")]')->item(0);
+
+        if (!$langDiv) {
+            return $data;
+        }
+
+        // Extract language links
+        $languages = $this->parseLanguageLinks($xpath, $langDiv);
+
+        // Find current language
+        $currentLang = $this->getCurrentLanguage($xpath, $langDiv);
+
+        // Add structured data
+        $data['translation-languages'] = [
+            'has-languages' => !empty($languages),
+            'current' => $currentLang,
+            'count' => count($languages) + 1, // +1 for current language
+            'languages' => $languages
+        ];
+
+        // Remove the language selector from body content
+        $langDiv->parentNode->removeChild($langDiv);
+        $data['html-body-content'] = $dom->saveHTML();
+
+        return $data;
+    }
+
+    /**
+     * Parse language links from the translate extension's language selector
+     *
+     * @param DOMXPath $xpath XPath query object
+     * @param DOMElement $langDiv The language selector container element
+     * @return array Array of language link data
+     */
+    private function parseLanguageLinks(DOMXPath $xpath, DOMElement $langDiv): array
+    {
+        $languages = [];
+        $links = $xpath->query('.//li/a', $langDiv);
+
+        foreach ($links as $link) {
+            $languages[] = [
+                'href' => $link->getAttribute('href'),
+                'title' => $link->getAttribute('title'),
+                'lang' => $link->getAttribute('lang'),
+                'dir' => $link->getAttribute('dir'),
+                'text' => trim($link->textContent),
+                'progress-class' => $link->getAttribute('class')
+            ];
+        }
+
+        return $languages;
+    }
+
+    /**
+     * Get the current language name from the translate extension's language selector
+     *
+     * @param DOMXPath $xpath XPath query object
+     * @param DOMElement $langDiv The language selector container element
+     * @return string Current language name
+     */
+    private function getCurrentLanguage(DOMXPath $xpath, DOMElement $langDiv): string
+    {
+        $currentSpan = $xpath->query(
+            './/li/span[contains(@class, "mw-pt-languages-selected")]',
+            $langDiv
+        )->item(0);
+
+        return $currentSpan ? trim($currentSpan->textContent) : 'English';
+    }
+
+    /**
+     * Process sidebar portlets to extract items as structured data
+     * Handles both data-portlets-first and array-portlets-rest
+     *
+     * @param array $data Template data array
+     * @return array Modified template data with structured sidebar items
+     */
+    private function processSidebarPortlets(array $data): array {
+        if (!isset($data['data-portlets-sidebar'])) {
+            return $data;
+        }
+
+        $sidebar = &$data['data-portlets-sidebar'];
+
+        // Process data-portlets-first (single portlet object)
+        if (isset($sidebar['data-portlets-first']) && !empty($sidebar['data-portlets-first'])) {
+            $this->processPortlet($sidebar['data-portlets-first']);
+        }
+
+        // Process array-portlets-rest (array of portlets)
+        if (isset($sidebar['array-portlets-rest']) && is_array($sidebar['array-portlets-rest'])) {
+            foreach ($sidebar['array-portlets-rest'] as &$portlet) {
+                $this->processPortlet($portlet);
+            }
+        }
+
+        return $data;
+    }
+
+    /**
+     * Process a single portlet to determine its type and extract items
+     *
+     * @param array $portlet Portlet data (passed by reference)
+     */
+    private function processPortlet(array &$portlet): void {
+        $portlet['array-items'] = $this->parsePortletItems($portlet['html-items'] ?? '');
+        $portlet['item-count'] = count($portlet['array-items']);
+
+        // Determine if this is a direct link or a container with sub-items
+        $portlet['is-direct-link'] = ($portlet['item-count'] === 0 && !empty($portlet['href']));
+        $portlet['has-children'] = ($portlet['item-count'] > 0);
+    }
+
+    /**
+     * Parse HTML list items into structured array
+     *
+     * @param string $htmlItems HTML string of list items
+     * @return array Array of item data
+     */
+    private function parsePortletItems(string $htmlItems): array {
+        if (empty($htmlItems)) {
+            return [];
+        }
+
+        $dom = new DOMDocument();
+        @$dom->loadHTML('<?xml encoding="UTF-8"><ul>' . $htmlItems . '</ul>', LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+        $xpath = new DOMXPath($dom);
+
+        $items = [];
+        $listItems = $xpath->query('//li');
+
+        foreach ($listItems as $li) {
+            $link = $xpath->query('.//a', $li)->item(0);
+
+            if ($link) {
+                $items[] = [
+                    'id' => $li->getAttribute('id'),
+                    'class' => $li->getAttribute('class'),
+                    'href' => $link->getAttribute('href'),
+                    'text' => trim($link->textContent)
+                ];
+            }
+        }
+
+        return $items;
+    }
+
+    /**
+     * Build a consistently styled user menu section with a header and items
+     *
+     * @param string $title Section header title
+     * @param array $items Array of items with 'id', 'href', 'text' keys
+     * @return string HTML for the section
+     */
+    private function buildUserMenuSection($title, array $items) {
+        $html = '<li class="user-menu-section-header">' . htmlspecialchars($title) . '</li>';
+        foreach ($items as $item) {
+            $id = !empty($item['id']) ? ' id="' . htmlspecialchars($item['id']) . '"' : '';
+            $href = htmlspecialchars($item['href']);
+            $text = htmlspecialchars($item['text']);
+            $html .= '<li' . $id . ' class="user-menu-item"><a href="' . $href . '">' . $text . '</a></li>';
+        }
+        return $html;
+    }
 
 // for debugging
-function console_log( $data ){
-    echo '<script>';
-    echo 'console.log('. json_encode( $data ) .')';
-    echo '</script>';
+    function console_log($data)
+    {
+        echo '<script>';
+        echo 'console.log(' . json_encode($data) . ')';
+        echo '</script>';
+    }
 }
 
 ?>
